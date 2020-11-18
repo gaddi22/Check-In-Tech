@@ -7,7 +7,7 @@ package com.checknscan.checkntech;
 
 /**
  *
- * @author Veteran
+ * @author Alexander Duncan
  */
 public class loginScreen extends javax.swing.JFrame {
 
@@ -59,7 +59,7 @@ public class loginScreen extends javax.swing.JFrame {
         appNameString.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         appNameString.setText("Check N Tech");
 
-        backButton1.setText("Login");
+        backButton1.setText("Back");
         backButton1.setToolTipText("Click here to login.");
         backButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         backButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +92,7 @@ public class loginScreen extends javax.swing.JFrame {
                     .addComponent(headerSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(headerBanner1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(appNameString, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(backButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
+                        .addComponent(backButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
