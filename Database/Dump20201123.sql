@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `checkintech` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `checkintech`;
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
 -- Host: localhost    Database: checkintech
@@ -68,4 +70,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-23 20:58:37
+-- Dump completed on 2020-11-23 22:11:42
