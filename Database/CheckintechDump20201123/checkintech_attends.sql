@@ -18,6 +18,28 @@ USE `checkintech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `attends`
+--
+
+DROP TABLE IF EXISTS `attends`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `attends` (
+  `AttID` varchar(10) NOT NULL,
+  `EventID` varchar(10) NOT NULL,
+  `FirstCheck` datetime DEFAULT NULL,
+  `LastCheck` datetime DEFAULT NULL,
+  `HasAttended` tinyint(4) DEFAULT '0',
+  `SignMethod` varchar(6) DEFAULT NULL,
+  `MAC` varchar(12) DEFAULT NULL,
+  PRIMARY KEY (`AttID`,`EventID`),
+  KEY `EventID_idx` (`EventID`),
+  CONSTRAINT `AttID` FOREIGN KEY (`AttID`) REFERENCES `attendees` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `EventID` FOREIGN KEY (`EventID`) REFERENCES `event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `attends`
 --
 
@@ -35,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-23 22:17:06
+-- Dump completed on 2020-11-23 22:20:37

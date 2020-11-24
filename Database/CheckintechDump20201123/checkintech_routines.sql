@@ -34,4 +34,4 @@ USE `checkintech`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-23 22:17:06
+-- Dump completed on 2020-11-23 22:20:37
