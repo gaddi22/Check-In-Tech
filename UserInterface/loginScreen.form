@@ -10,6 +10,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[900, 600]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -30,16 +33,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="headerBanner1" alignment="0" pref="699" max="32767" attributes="0"/>
+          <Component id="headerBanner1" alignment="0" pref="906" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="loginPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel2" min="-2" pref="190" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -47,11 +45,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="headerBanner1" min="-2" pref="54" max="-2" attributes="0"/>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" pref="136" max="32767" attributes="0"/>
+              <Component id="loginPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="130" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -81,10 +77,10 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="headerSeparator" min="-2" pref="70" max="-2" attributes="0"/>
-                  <EmptySpace pref="146" max="32767" attributes="0"/>
+                  <EmptySpace pref="250" max="32767" attributes="0"/>
                   <Component id="appNameString" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="146" max="32767" attributes="0"/>
-                  <Component id="backButton1" min="-2" pref="70" max="-2" attributes="0"/>
+                  <EmptySpace pref="250" max="32767" attributes="0"/>
+                  <Component id="backButton" min="-2" pref="70" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -97,7 +93,7 @@
                       <Component id="headerSeparator" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                           <Component id="appNameString" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="backButton1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="backButton" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -120,10 +116,10 @@
             <Property name="text" type="java.lang.String" value="Check N Tech"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="backButton1">
+        <Component class="javax.swing.JButton" name="backButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Back"/>
-            <Property name="toolTipText" type="java.lang.String" value="Click here to login."/>
+            <Property name="toolTipText" type="java.lang.String" value="Return to home page."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder roundedCorners="true"/>
@@ -131,7 +127,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButtonActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="// Returns to the home screen."/>
@@ -152,7 +148,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="loginPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="66" red="ff" type="rgb"/>
@@ -171,19 +167,18 @@
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField1" min="-2" pref="193" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPasswordField1" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
+                          <Component id="usernameField" min="-2" pref="193" max="-2" attributes="0"/>
+                          <Component id="usernameLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="passwordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="passwordField" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jButton1" min="-2" pref="73" max="-2" attributes="0"/>
+                          <Component id="loginButton" min="-2" pref="73" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton2" min="-2" pref="73" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="cancelButton" min="-2" pref="73" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="forgotPasswordButton" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
@@ -193,19 +188,19 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="usernameLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                  <Component id="usernameField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jPasswordField1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="passwordField" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                  <Component id="forgotPasswordButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="loginButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
@@ -213,7 +208,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="usernameLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="1"/>
@@ -224,7 +219,7 @@
             <Property name="text" type="java.lang.String" value="Username:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="passwordLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="1"/>
@@ -235,60 +230,50 @@
             <Property name="text" type="java.lang.String" value="Password:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JButton" name="loginButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Forgot Password?"/>
+            <Property name="text" type="java.lang.String" value="Login"/>
+            <Property name="toolTipText" type="java.lang.String" value="Click to confirm login."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginButtonActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="// Logs in the user."/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="cancelButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
+            <Property name="toolTipText" type="java.lang.String" value="Returns to home page."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="// Returns to home page."/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="usernameField">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Enter username here."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JPasswordField" name="passwordField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton1"/>
+            <Property name="toolTipText" type="java.lang.String" value="Enter password here."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="forgotPasswordButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton2"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField1"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JPasswordField" name="jPasswordField1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/checknscan/checkntech/Images/invis logo3.png"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Forgot Password?"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
         </Component>
       </SubComponents>
