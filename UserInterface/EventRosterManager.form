@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="headerEventRoster" pref="1281" max="32767" attributes="0"/>
+          <Component id="headerEventRoster" pref="900" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Component id="navigationBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="eventRosterManagTitle" min="-2" pref="344" max="-2" attributes="0"/>
-                  <EmptySpace pref="845" max="32767" attributes="0"/>
+                  <EmptySpace pref="464" max="32767" attributes="0"/>
                   <Component id="logoutButton" min="-2" pref="70" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -132,9 +132,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="manageEventsButton" alignment="1" max="32767" attributes="0"/>
-                      <Component id="manageAccountsButton" alignment="1" pref="111" max="32767" attributes="0"/>
-                      <Component id="manageRosterEvents" alignment="0" max="32767" attributes="0"/>
+                      <Component id="manageEventsButton" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="manageAccountsButton" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="manageRosterEvents" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -146,9 +146,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="manageEventsButton" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="manageAccountsButton" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="manageAccountsButton" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="manageRosterEvents" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="manageRosterEvents" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -159,6 +159,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Manage Events"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageEventsButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="manageAccountsButton">
           <Properties>
@@ -173,6 +176,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Manage Roster"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageRosterEventsActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -203,7 +209,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="eventRosterPanel" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="31" max="32767" attributes="0"/>
+                          <EmptySpace pref="174" max="32767" attributes="0"/>
                           <Component id="addButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="removeButton" min="-2" max="-2" attributes="0"/>
@@ -211,7 +217,7 @@
                           <Component id="saveButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="31" max="32767" attributes="0"/>
+                          <EmptySpace pref="175" max="32767" attributes="0"/>
                       </Group>
                       <Component id="mainRosterPanel" max="32767" attributes="0"/>
                   </Group>

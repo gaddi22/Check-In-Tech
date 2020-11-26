@@ -9,12 +9,12 @@ package com.checknscan.checkntech;
  *
  * @author Veteran
  */
-public class UserAccounts extends javax.swing.JFrame {
+public class userAccounts extends javax.swing.JFrame {
 
     /**
      * Creates new form UserAccounts
      */
-    public UserAccounts() {
+    public userAccounts() {
         initComponents();
     }
 
@@ -27,21 +27,346 @@ public class UserAccounts extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        headerEditUserAccounts = new javax.swing.JPanel();
+        logoutButton = new javax.swing.JButton();
+        userAccountsTitle = new javax.swing.JLabel();
+        navigationBar = new javax.swing.JPanel();
+        manageEventsButton = new javax.swing.JButton();
+        manageAccountsButton = new javax.swing.JButton();
+        manageRosterEvents = new javax.swing.JButton();
+        registeredAccountsPanel = new javax.swing.JPanel();
+        registeredAccountsTitlePanel = new javax.swing.JPanel();
+        registeredAccountsLabel = new javax.swing.JLabel();
+        accountsScrollTable = new javax.swing.JScrollPane();
+        accountsTable = new javax.swing.JTable();
+        accountDetailsPanel = new javax.swing.JPanel();
+        accountsDetailsHeader = new javax.swing.JPanel();
+        accountDetailsLabel = new javax.swing.JLabel();
+        idNumberLabel = new javax.swing.JLabel();
+        idNumberField = new javax.swing.JTextField();
+        lastNameLabel = new javax.swing.JLabel();
+        lastNameField = new javax.swing.JTextField();
+        firstNameLabel = new javax.swing.JLabel();
+        firstNameField = new javax.swing.JTextField();
+        tempPassLabel = new javax.swing.JLabel();
+        tempPasswordField = new javax.swing.JPasswordField();
+        addUpdateButton = new javax.swing.JButton();
+        Cancel = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(900, 600));
+
+        headerEditUserAccounts.setBackground(new java.awt.Color(255, 102, 51));
+        headerEditUserAccounts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        headerEditUserAccounts.setPreferredSize(new java.awt.Dimension(2, 65));
+
+        logoutButton.setText("Logout");
+        logoutButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+
+        userAccountsTitle.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        userAccountsTitle.setForeground(new java.awt.Color(255, 255, 255));
+        userAccountsTitle.setText("Create / Update Registered Accounts");
+
+        javax.swing.GroupLayout headerEditUserAccountsLayout = new javax.swing.GroupLayout(headerEditUserAccounts);
+        headerEditUserAccounts.setLayout(headerEditUserAccountsLayout);
+        headerEditUserAccountsLayout.setHorizontalGroup(
+            headerEditUserAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerEditUserAccountsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(userAccountsTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        headerEditUserAccountsLayout.setVerticalGroup(
+            headerEditUserAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerEditUserAccountsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(headerEditUserAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(userAccountsTitle)
+                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        navigationBar.setBackground(new java.awt.Color(255, 255, 204));
+        navigationBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        manageEventsButton.setText("Manage Events");
+        manageEventsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageEventsButtonActionPerformed(evt);
+            }
+        });
+
+        manageAccountsButton.setText("User Dashboard");
+        manageAccountsButton.setActionCommand("");
+        manageAccountsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageAccountsButtonActionPerformed(evt);
+            }
+        });
+
+        manageRosterEvents.setText("Manage Roster");
+        manageRosterEvents.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageRosterEventsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout navigationBarLayout = new javax.swing.GroupLayout(navigationBar);
+        navigationBar.setLayout(navigationBarLayout);
+        navigationBarLayout.setHorizontalGroup(
+            navigationBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navigationBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(navigationBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(manageEventsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageAccountsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageRosterEvents, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        navigationBarLayout.setVerticalGroup(
+            navigationBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navigationBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(manageEventsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(manageAccountsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(manageRosterEvents, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        registeredAccountsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        registeredAccountsTitlePanel.setBackground(new java.awt.Color(255, 102, 51));
+        registeredAccountsTitlePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        registeredAccountsTitlePanel.setPreferredSize(new java.awt.Dimension(339, 50));
+
+        registeredAccountsLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        registeredAccountsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        registeredAccountsLabel.setText("Registered Accounts");
+
+        javax.swing.GroupLayout registeredAccountsTitlePanelLayout = new javax.swing.GroupLayout(registeredAccountsTitlePanel);
+        registeredAccountsTitlePanel.setLayout(registeredAccountsTitlePanelLayout);
+        registeredAccountsTitlePanelLayout.setHorizontalGroup(
+            registeredAccountsTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registeredAccountsTitlePanelLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(registeredAccountsLabel)
+                .addContainerGap(129, Short.MAX_VALUE))
+        );
+        registeredAccountsTitlePanelLayout.setVerticalGroup(
+            registeredAccountsTitlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registeredAccountsTitlePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(registeredAccountsLabel)
+                .addContainerGap())
+        );
+
+        accountsScrollTable.setBackground(new java.awt.Color(255, 255, 255));
+
+        accountsTable.setAutoCreateRowSorter(true);
+        accountsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Remove", "User ID", "Last Name", "First Name", "Password"
+            }
+        ));
+        accountsScrollTable.setViewportView(accountsTable);
+
+        javax.swing.GroupLayout registeredAccountsPanelLayout = new javax.swing.GroupLayout(registeredAccountsPanel);
+        registeredAccountsPanel.setLayout(registeredAccountsPanelLayout);
+        registeredAccountsPanelLayout.setHorizontalGroup(
+            registeredAccountsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(registeredAccountsTitlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+            .addGroup(registeredAccountsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(accountsScrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        registeredAccountsPanelLayout.setVerticalGroup(
+            registeredAccountsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registeredAccountsPanelLayout.createSequentialGroup()
+                .addComponent(registeredAccountsTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(accountsScrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        accountDetailsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        accountDetailsPanel.setPreferredSize(new java.awt.Dimension(331, 416));
+
+        accountsDetailsHeader.setBackground(new java.awt.Color(255, 102, 51));
+        accountsDetailsHeader.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        accountDetailsLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        accountDetailsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        accountDetailsLabel.setText("New / Modify User");
+
+        javax.swing.GroupLayout accountsDetailsHeaderLayout = new javax.swing.GroupLayout(accountsDetailsHeader);
+        accountsDetailsHeader.setLayout(accountsDetailsHeaderLayout);
+        accountsDetailsHeaderLayout.setHorizontalGroup(
+            accountsDetailsHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accountsDetailsHeaderLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(accountDetailsLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        accountsDetailsHeaderLayout.setVerticalGroup(
+            accountsDetailsHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accountsDetailsHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(accountDetailsLabel)
+                .addContainerGap())
+        );
+
+        idNumberLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        idNumberLabel.setText("ID Number: ");
+
+        lastNameLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lastNameLabel.setText("Last Name:");
+
+        firstNameLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        firstNameLabel.setText("First Name:");
+
+        tempPassLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tempPassLabel.setText("Temporary Password:");
+
+        tempPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tempPasswordFieldActionPerformed(evt);
+            }
+        });
+
+        addUpdateButton.setLabel("Add/Update");
+        addUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUpdateButtonActionPerformed(evt);
+            }
+        });
+
+        Cancel.setText("Cancel");
+
+        javax.swing.GroupLayout accountDetailsPanelLayout = new javax.swing.GroupLayout(accountDetailsPanel);
+        accountDetailsPanel.setLayout(accountDetailsPanelLayout);
+        accountDetailsPanelLayout.setHorizontalGroup(
+            accountDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(accountsDetailsHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(accountDetailsPanelLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(accountDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(firstNameField)
+                    .addComponent(lastNameField)
+                    .addComponent(idNumberField)
+                    .addComponent(lastNameLabel)
+                    .addComponent(firstNameLabel)
+                    .addComponent(idNumberLabel)
+                    .addComponent(tempPassLabel)
+                    .addComponent(tempPasswordField))
+                .addGap(30, 30, 30))
+            .addGroup(accountDetailsPanelLayout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(addUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
+        );
+        accountDetailsPanelLayout.setVerticalGroup(
+            accountDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accountDetailsPanelLayout.createSequentialGroup()
+                .addComponent(accountsDetailsHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(idNumberLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(idNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(lastNameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(firstNameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(tempPassLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tempPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(accountDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addUpdateButton)
+                    .addComponent(Cancel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(headerEditUserAccounts, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(navigationBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(registeredAccountsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(accountDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(headerEditUserAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navigationBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(registeredAccountsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(accountDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        new homePage().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void manageAccountsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountsButtonActionPerformed
+        // Opens Account Manager
+        new userAccounts().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_manageAccountsButtonActionPerformed
+
+    private void manageEventsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEventsButtonActionPerformed
+        // Opens Event Manager Panel
+        new eventManager().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_manageEventsButtonActionPerformed
+
+    private void manageRosterEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRosterEventsActionPerformed
+        // Opens Roster Manager
+        new rosterManager().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_manageRosterEventsActionPerformed
+
+    private void addUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUpdateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addUpdateButtonActionPerformed
+
+    private void tempPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempPasswordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tempPasswordFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -60,24 +385,50 @@ public class UserAccounts extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserAccounts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(userAccounts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserAccounts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(userAccounts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserAccounts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(userAccounts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserAccounts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(userAccounts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserAccounts().setVisible(true);
+                new userAccounts().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancel;
+    private javax.swing.JLabel accountDetailsLabel;
+    private javax.swing.JPanel accountDetailsPanel;
+    private javax.swing.JPanel accountsDetailsHeader;
+    private javax.swing.JScrollPane accountsScrollTable;
+    private javax.swing.JTable accountsTable;
+    private javax.swing.JButton addUpdateButton;
+    private javax.swing.JTextField firstNameField;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JPanel headerEditUserAccounts;
+    private javax.swing.JTextField idNumberField;
+    private javax.swing.JLabel idNumberLabel;
+    private javax.swing.JTextField lastNameField;
+    private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JButton logoutButton;
+    private javax.swing.JButton manageAccountsButton;
+    private javax.swing.JButton manageEventsButton;
+    private javax.swing.JButton manageRosterEvents;
+    private javax.swing.JPanel navigationBar;
+    private javax.swing.JLabel registeredAccountsLabel;
+    private javax.swing.JPanel registeredAccountsPanel;
+    private javax.swing.JPanel registeredAccountsTitlePanel;
+    private javax.swing.JLabel tempPassLabel;
+    private javax.swing.JPasswordField tempPasswordField;
+    private javax.swing.JLabel userAccountsTitle;
     // End of variables declaration//GEN-END:variables
 }
