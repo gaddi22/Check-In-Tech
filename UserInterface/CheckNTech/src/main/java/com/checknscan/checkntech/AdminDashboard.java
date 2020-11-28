@@ -469,7 +469,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     // Needs to verify date format. The field takes in a String. Also needs to verify the event doesn't exist already in the database.
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // Verifies startTimeField is an int. 
-        boolean isInt = true;
+        /* boolean isInt = true;
         try {
             Integer.parseInt(startTimeField.getText());
             isInt = true;
@@ -486,7 +486,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
         else {
             javax.swing.JOptionPane.showMessageDialog(null, "Time must be formated HHMM");
-        }
+        } */
+        DBConnector.createEvent(nameField.getText(), dateField.getText(), startTimeField.getText(), endTimeField.getText());
     }//GEN-LAST:event_saveButtonActionPerformed
 
     // Opens the specified Event's Roster Page. Will need to access the database to find the roster.
