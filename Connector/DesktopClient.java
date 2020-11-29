@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class DesktopClient
 {
@@ -143,14 +145,29 @@ public class DesktopClient
           */
 
          //Test checkIn method
+         /*
+
          System.out.println("Checking in attendee 1 into event E1 with a mobile device of MAC 'testmac_1234'...");
          SQLGrabber.checkIn("1", "E1", "mobile", "testmac_1234");
 
          System.out.println("Checking in attendee 2 into event E1 with a card...");
          SQLGrabber.checkIn("2", "E1", "card", null);
+          */
 
          //Test checkOut method
-         System.out.println("Checking out attendee 1 out of event E1");
-         SQLGrabber.checkOut("1", "E1");
+         /*
+         System.out.println("Checking out attendee 1 out of event E2");
+         SQLGrabber.checkOut("1", "E2");
+          */
+
+         //Test isFirstCheckNull
+         /*
+         System.out.println("Checking if attendee 2 checked into event E1");
+         System.out.println(SQLGrabber.isFirstCheckNull("2", "E1"));
+
+         System.out.println("Checking if attendee 1 checked into event E1");
+         System.out.println(SQLGrabber.isFirstCheckNull("1", "E1"));
+          */
+
      }
 }

@@ -1,6 +1,4 @@
 import java.sql.*;
-import java.time.Duration;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TreeMap;
@@ -362,6 +360,97 @@ public class Connector
         }
         return null;
     }
+
+    //Method to find start of an event
+    public String findStart(String targetEventID)
+    {
+
+        //Establish connection to database
+        Connection conHolder = null;
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+
+        try
+        {
+            //Register driver
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            //Attempt to log in
+            conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
+
+            //Declare ResultSet
+            ResultSet queryResult;
+
+            //Perform SQL query
+            Statement statement = conHolder.createStatement();
+            //String sqlSelect = "SELECT * FROM event";
+            String sqlSelect = "SELECT  * " +
+                    "FROM event " +
+                    "WHERE ID = '" + targetEventID + "' ";
+            queryResult = statement.executeQuery(sqlSelect);
+
+
+            //Store results of query
+            String foundStart = null;
+            while(queryResult.next())
+            {
+                foundStart = queryResult.getString("Date");
+            }
+
+            return foundStart;
+
+        }
+
+        catch (SQLException error)
+        {
+            error.printStackTrace();
+        }
+        return null;
+    }
+
+    //Method to find end of an event
+    public String findEnd(String targetEventID)
+    {
+
+        //Establish connection to database
+        Connection conHolder = null;
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+
+        try
+        {
+            //Register driver
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            //Attempt to log in
+            conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
+
+            //Declare ResultSet
+            ResultSet queryResult;
+
+            //Perform SQL query
+            Statement statement = conHolder.createStatement();
+            //String sqlSelect = "SELECT * FROM event";
+            String sqlSelect = "SELECT  * " +
+                    "FROM event " +
+                    "WHERE ID = '" + targetEventID + "' ";
+            queryResult = statement.executeQuery(sqlSelect);
+
+
+            //Store results of query
+            String foundEnd = null;
+            while(queryResult.next())
+            {
+                foundEnd = queryResult.getString("End");
+            }
+
+            return foundEnd;
+
+        }
+
+        catch (SQLException error)
+        {
+            error.printStackTrace();
+        }
+        return null;
+    }
+
 
     //Method to create an attendee
     public void createAttendee(String first, String last, String targetEventID)
@@ -958,7 +1047,9 @@ public class Connector
             String sqlSelect = "SELECT * FROM attends\n" +
                                 "WHERE AttID='" + targetAttendeeID +
                                 "' AND EventID='" + targetEventID +
-                                "' AND CAST (CURRDATE() AS TIME) <= '" + findDuration(targetEventID) + "';";
+                                "' AND CURDATE() >= '" + findStart(targetEventID) +
+                                "' AND CURDATE() <= '" + findEnd(targetEventID) +
+                                "' AND CAST(CURDATE() AS TIME) <= '" + findDuration(targetEventID) + "';";
             queryResult = statement.executeQuery(sqlSelect);
 
             String attendedString = "0";
@@ -989,6 +1080,56 @@ public class Connector
         {
             error.printStackTrace();
         }
+    }
+
+    //Method to check if an attendee has checked in or not
+    public boolean isFirstCheckNull(String targetAttendeeID, String targetEventID)
+    {
+        //Establish connection to database
+        Connection conHolder = null;
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+
+        try
+        {
+            //Register driver
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            //Attempt to log in
+            conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
+
+            //Declare ResultSet
+            ResultSet queryResult;
+
+            //Perform SQL query
+            Statement statement = conHolder.createStatement();
+            String sqlSelect = "SELECT  *\n" +
+                    "FROM attends\n" +
+                    "WHERE AttID = '" + targetAttendeeID + "' " +
+                    "AND EventID = '" + targetEventID + "';";
+            queryResult = statement.executeQuery(sqlSelect);
+
+            //Store result of query in String
+            String firstCheck = null;
+            while(queryResult.next())
+            {
+                firstCheck = queryResult.getString("FirstCheck");
+            }
+
+            //Check if firstCheck is null
+            if(firstCheck == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        catch (SQLException error)
+        {
+            error.printStackTrace();
+        }
+        return false;
     }
 
 }
