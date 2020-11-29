@@ -452,7 +452,7 @@ public class Connector
     }
 
 
-    //Method to create an attendee
+    //Method to create an attendee, requires event ID
     public void createAttendee(String first, String last, String targetEventID)
     {
 
@@ -500,6 +500,49 @@ public class Connector
             error.printStackTrace();
         }
     }
+
+    //Method to create an attendee, does NOT require event ID
+    public void createAttendee(String first, String last)
+    {
+
+        //Establish connection to database
+        Connection conHolder = null;
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+
+        try
+        {
+            //Register driver
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            //Attempt to log in
+            conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
+
+            //Try to perform insert until ID is unique
+            int generatedID = 1;
+            while (true)
+            {
+                try
+                {
+                    Statement statement = conHolder.createStatement();
+                    String sql = "INSERT INTO attendees (ID, Last, First)\n" +
+                            "VALUES ('" + generatedID + "', '" + last + "', '"  + first + "');";
+                    statement.executeUpdate(sql);
+                    break;
+                }
+                catch(SQLException error)
+                {
+                    error.printStackTrace();
+                    generatedID++;
+                    continue;
+                }
+            }
+        }
+
+        catch (SQLException error)
+        {
+            error.printStackTrace();
+        }
+    }
+
 
     //Method to create an event
     public void createEvent(String date, String duration, String name, String end, String ownerID)
