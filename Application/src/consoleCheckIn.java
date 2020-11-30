@@ -135,10 +135,12 @@ public class consoleCheckIn {
 				ArrayList<String> row = new ArrayList<>();
 				
 				//add columns
-				while(!next.equals("")) {
+				while(next.contains("~")) {
 					row.add(next.substring(0,next.indexOf("~")));
 					next = next.substring(next.indexOf("~")+1);
 				}
+				//add final substring
+				row.add(next);
 				System.out.println(row.toString());
 				
 				//add row to event info
