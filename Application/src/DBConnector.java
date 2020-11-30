@@ -128,7 +128,7 @@ public class DBConnector
     }
 
     //Method to find full name of attendee if ID is known, echos ID back
-    public String[] findAttendeeECHO(String targetAttendeeID)
+    public static String[] findAttendeeECHO(String targetAttendeeID)
     {
 
         //Establish connection to database
@@ -269,7 +269,7 @@ public class DBConnector
     }
 
     //Method to get roster of a particular event
-    public ArrayList<String[]> getEventRoster(String targetEventID)
+    public static ArrayList<String[]> getEventRoster(String targetEventID)
     {
 
         //Establish connection to database
@@ -474,5 +474,17 @@ public class DBConnector
             error.printStackTrace();
         }
         return false;
+        
     }
+
+	public static TreeMap getCurrEvents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static boolean checkIn(String attID, String eventID, String method, String mac) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+    
 }
