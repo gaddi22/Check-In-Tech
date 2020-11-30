@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.checknscan.checkntech;
 
-/**
+/** Creates the Event Manager display. 
  *
  * @author Alexander Duncan
  */
-public class RosterManager extends javax.swing.JFrame {
-
+public class EventManager extends javax.swing.JFrame {
     /**
-     * Creates new form RosterManager
+     * Creates new form EventManager
      */
-    public RosterManager() {
+    public EventManager() {
         initComponents();
     }
 
@@ -27,14 +25,25 @@ public class RosterManager extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        headerRosterManager = new javax.swing.JPanel();
+        // Header of the page.
+        headerEventManager = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
-        rosterManageTitle = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        rosterMemberTitle = new javax.swing.JPanel();
-        rosterMemberLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        eventManagerTitle = new javax.swing.JLabel();
+        upcomingEventsPanel = new javax.swing.JPanel();
+        upcomingEventsScrollPanel = new javax.swing.JScrollPane();
+        String[][] events = getEvents(); // Get events list from database.
+        //String [][] events = {{"Name", "Location", "Date", "Start Time", "End Time"}, {"Name", "Location", "Date", "Start Time", "End Time"}};
+        Object [][] eventTable = new Object [events.length][events[0].length+3]; // Initialize
+
+        for(int i=0; i < eventTable.length; i++){
+            for(int j = 0; j < eventTable[0].length; j++){
+                if(j < events[0].length)
+                eventTable[i][j] = events[i][j];
+            }
+        }
+        eventManagerTable = new javax.swing.JTable();
+        upcomingEventsTitle = new javax.swing.JPanel();
+        registeredAccountsLabel = new javax.swing.JLabel();
         navigationBar = new javax.swing.JPanel();
         manageEventsButton = new javax.swing.JButton();
         manageAccountsButton = new javax.swing.JButton();
@@ -43,9 +52,9 @@ public class RosterManager extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        headerRosterManager.setBackground(new java.awt.Color(255, 102, 51));
-        headerRosterManager.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        headerRosterManager.setPreferredSize(new java.awt.Dimension(2, 65));
+        headerEventManager.setBackground(new java.awt.Color(255, 102, 51));
+        headerEventManager.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        headerEventManager.setPreferredSize(new java.awt.Dimension(2, 65));
 
         logoutButton.setText("Logout");
         logoutButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -55,86 +64,96 @@ public class RosterManager extends javax.swing.JFrame {
             }
         });
 
-        rosterManageTitle.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        rosterManageTitle.setForeground(new java.awt.Color(255, 255, 255));
-        rosterManageTitle.setText("Roster Manager");
+        eventManagerTitle.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        eventManagerTitle.setForeground(new java.awt.Color(255, 255, 255));
+        eventManagerTitle.setText("Event Manager");
 
-        javax.swing.GroupLayout headerRosterManagerLayout = new javax.swing.GroupLayout(headerRosterManager);
-        headerRosterManager.setLayout(headerRosterManagerLayout);
-        headerRosterManagerLayout.setHorizontalGroup(
-            headerRosterManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerRosterManagerLayout.createSequentialGroup()
+        javax.swing.GroupLayout headerEventManagerLayout = new javax.swing.GroupLayout(headerEventManager);
+        headerEventManager.setLayout(headerEventManagerLayout);
+        headerEventManagerLayout.setHorizontalGroup(
+            headerEventManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerEventManagerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rosterManageTitle)
+                .addComponent(eventManagerTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        headerRosterManagerLayout.setVerticalGroup(
-            headerRosterManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerRosterManagerLayout.createSequentialGroup()
+        headerEventManagerLayout.setVerticalGroup(
+            headerEventManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerEventManagerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(headerRosterManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rosterManageTitle)
+                .addGroup(headerEventManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(eventManagerTitle)
                     .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        upcomingEventsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        rosterMemberTitle.setBackground(new java.awt.Color(255, 102, 51));
-        rosterMemberTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        upcomingEventsScrollPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        rosterMemberLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        rosterMemberLabel.setForeground(new java.awt.Color(255, 255, 255));
-        rosterMemberLabel.setText("All Roster Members");
-
-        javax.swing.GroupLayout rosterMemberTitleLayout = new javax.swing.GroupLayout(rosterMemberTitle);
-        rosterMemberTitle.setLayout(rosterMemberTitleLayout);
-        rosterMemberTitleLayout.setHorizontalGroup(
-            rosterMemberTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rosterMemberTitleLayout.createSequentialGroup()
-                .addContainerGap(260, Short.MAX_VALUE)
-                .addComponent(rosterMemberLabel)
-                .addContainerGap(260, Short.MAX_VALUE))
-        );
-        rosterMemberTitleLayout.setVerticalGroup(
-            rosterMemberTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rosterMemberTitleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(rosterMemberLabel)
-                .addContainerGap())
-        );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
+        eventManagerTable.setAutoCreateRowSorter(true);
+        eventManagerTable.setModel(new javax.swing.table.DefaultTableModel(
+            eventTable,
             new String [] {
-                "ID", "Last Name", "First Name", "Save", "Delete"
+                "Name", "Location", "Date", "Start Time", "End Time", "Modifiy Roster", "Save", "Delete"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rosterMemberTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        eventManagerTable.setToolTipText("");
+        eventManagerTable.setAutoscrolls(false);
+        eventManagerTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        eventManagerTable.setShowGrid(true);
+        upcomingEventsScrollPanel.setViewportView(eventManagerTable);
+
+        upcomingEventsTitle.setBackground(new java.awt.Color(255, 102, 51));
+        upcomingEventsTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        registeredAccountsLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        registeredAccountsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        registeredAccountsLabel.setText("Upcoming Events");
+
+        javax.swing.GroupLayout upcomingEventsTitleLayout = new javax.swing.GroupLayout(upcomingEventsTitle);
+        upcomingEventsTitle.setLayout(upcomingEventsTitleLayout);
+        upcomingEventsTitleLayout.setHorizontalGroup(
+            upcomingEventsTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upcomingEventsTitleLayout.createSequentialGroup()
+                .addContainerGap(275, Short.MAX_VALUE)
+                .addComponent(registeredAccountsLabel)
+                .addContainerGap(275, Short.MAX_VALUE))
+        );
+        upcomingEventsTitleLayout.setVerticalGroup(
+            upcomingEventsTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(upcomingEventsTitleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(registeredAccountsLabel)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(rosterMemberTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+
+        javax.swing.GroupLayout upcomingEventsPanelLayout = new javax.swing.GroupLayout(upcomingEventsPanel);
+        upcomingEventsPanel.setLayout(upcomingEventsPanelLayout);
+        upcomingEventsPanelLayout.setHorizontalGroup(
+            upcomingEventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(upcomingEventsTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(upcomingEventsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(upcomingEventsScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        upcomingEventsPanelLayout.setVerticalGroup(
+            upcomingEventsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upcomingEventsPanelLayout.createSequentialGroup()
+                .addComponent(upcomingEventsTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                .addComponent(upcomingEventsScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -202,21 +221,21 @@ public class RosterManager extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headerRosterManager, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(headerEventManager, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(navigationBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(upcomingEventsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(headerRosterManager, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(headerEventManager, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(upcomingEventsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(navigationBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -225,32 +244,33 @@ public class RosterManager extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    // Logs the user out. Returns to the HomePage.
+    // Logs user out. Returns to HomePage.
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         new HomePage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
-    // Opens the Event Manager.
+    // Opens Event Manager.
     private void manageEventsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEventsButtonActionPerformed
         new EventManager().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_manageEventsButtonActionPerformed
 
-    // Opens the Account Manager.
+    // Opens Account Manager.
     private void manageAccountsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountsButtonActionPerformed
         new UserAccounts().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_manageAccountsButtonActionPerformed
 
-    // Opens the Roster Manager.
+    // Opens Roster Manager.
     private void manageRosterEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRosterEventsActionPerformed
         new RosterManager().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_manageRosterEventsActionPerformed
 
-    // Opens the user Dashboard.
+    // Opens User Dashboard.
     private void userDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDashboardButtonActionPerformed
+        // TODO add your handling code here:
         new AdminDashboard().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_userDashboardButtonActionPerformed
@@ -272,13 +292,13 @@ public class RosterManager extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RosterManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RosterManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RosterManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RosterManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -288,24 +308,24 @@ public class RosterManager extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RosterManager().setVisible(true);
+                new EventManager().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel headerRosterManager;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable eventManagerTable;
+    private javax.swing.JLabel eventManagerTitle;
+    private javax.swing.JPanel headerEventManager;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton manageAccountsButton;
     private javax.swing.JButton manageEventsButton;
     private javax.swing.JButton manageRosterEvents;
     protected javax.swing.JPanel navigationBar;
-    private javax.swing.JLabel rosterManageTitle;
-    private javax.swing.JLabel rosterMemberLabel;
-    private javax.swing.JPanel rosterMemberTitle;
+    private javax.swing.JLabel registeredAccountsLabel;
+    private javax.swing.JPanel upcomingEventsPanel;
+    private javax.swing.JScrollPane upcomingEventsScrollPanel;
+    private javax.swing.JPanel upcomingEventsTitle;
     private javax.swing.JButton userDashboardButton;
     // End of variables declaration//GEN-END:variables
 }
