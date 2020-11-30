@@ -21,95 +21,68 @@ public class checkInListener implements Runnable{
 	@Override
 	public void run() {
 		//Listener for Card reader and mobile check ins
-		
-		while(true) {
-			//create TCP socket
-			try {
-				ServerSocket servSoc = new ServerSocket(83456);
-				servSoc.setSoTimeout(500);
-				
-				//check and fulfill any mobile requests
-				try{
-					Socket toClient = servSoc.accept();
-					while(!toClient.isClosed()) {
-						//prep input and output stream
-						BufferedReader clientIn = new BufferedReader(new InputStreamReader(toClient.getInputStream()));
-						PrintWriter clientOut = new PrintWriter(toClient.getOutputStream());
-						
-						//read in client message as byte array then make it a string
-						String msg = clientIn.readLine();
-						
-						//g == "get event info"
-						//c == "check in"
-						if(msg == "g") {
-							//key of currEvents will be the ID of an event
-							//Values array: Date, Duration, Name, End, OwnerID
-							TreeMap<String, String[]> currEvents = DBConnector.getCurrEvents();
+		//create TCP socket
+		try {
+			ServerSocket servSoc = new ServerSocket(25463);
+			servSoc.setSoTimeout(0);
+			
+			while(true) {
+					
+					//read in client message as byte array then make it a string
+					String msg = socketRead(servSoc);
+					
+					//g == "get event info"
+					//c == "check in"
+					if(msg.equals("g")) {
+						System.out.println("we got here");
+						for(Map.Entry row : DBConnector.findActiveEvents().entrySet()) {
 							
-							while(!currEvents.isEmpty()) {
-								
-								//send data to client
-								//header for event segment: Begin event:
-								clientOut.println("Begin event:");
-								
-								//format: eventID~Date~...
-								clientOut.print(currEvents.lastKey());
-								String[] values = (String[])currEvents.get(currEvents.lastKey());
-								for(String value:values) {
-									System.out.print("~" + value);
-								}
-								clientOut.println();
-								
-								ArrayList<String[]> roster = DBConnector.getEventRoster((String)currEvents.lastKey());
-								
-								//send event roster
-								//each user info is one row
-								while(!roster.isEmpty()) {
-									clientOut.println(Arrays.toString(roster.get(0)));
-									roster.remove(0);
-								}
-								
-								currEvents.remove(currEvents.lastKey());
-								//end of current event's segment
-							}
+							String ID = (String)row.getKey();
+				            String[] infoArray = (String[])row.getValue();
+				            String infoArrayString = Arrays.toString(infoArray);
+				            infoArrayString = infoArrayString.replace(",", "~");
+				            infoArrayString = infoArrayString.replace("[", "");
+				            infoArrayString = infoArrayString.replace("]", "");
+				            infoArrayString = infoArrayString.replace("\"", "");
+
+				            System.out.println(ID + "~" + Arrays.toString(infoArray));
+				            
+				            socketWrite(ID + "~" + Arrays.toString(infoArray),servSoc);
+							
 							
 						}
-						else if(msg == "c") {
-							msg = clientIn.readLine();
-							//parse string: MAC~EventID~UserID
-							String[] clientInf = new String[3];
-							
-							int i = 0;
-							while(msg != "") {
-								clientInf[i] = msg.substring(0, msg.indexOf("~"));
-								msg = msg.substring(msg.indexOf("~")+1);
-								i++;
-							}
-							
-							if(DBConnector.checkIn(clientInf[2],clientInf[1],"mobile",clientInf[0])) {
-								
-							}
-						}			
 						
-						clientOut.println("END");
-						
-						toClient.close();
 					}
-				}
-				catch(SocketException se) {
-					se.printStackTrace();
-				}
+					else if(msg.equals("c")) {
+						msg = socketRead(servSoc);
+						//parse string: MAC~EventID~UserID
+						String[] clientInf = new String[3];
+						
+						int i = 0;
+						while(!msg.equals("")) {
+							clientInf[i] = msg.substring(0, msg.indexOf("~"));
+							msg = msg.substring(msg.indexOf("~")+1);
+							i++;
+						}
+						
+						DBConnector.checkIn(clientInf[2],clientInf[1],"mobile",clientInf[0]);
+							
+					}			
+					
+					socketWrite("END", servSoc);
+				
 				
 				//check and fulfill any card scanner check ins
 				if(cardScannerConnected()) {
 					cardListener();
 				}
 				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
+			} 
+		}catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+			
 	}
 
 	private boolean cardScannerConnected() {
@@ -143,5 +116,50 @@ public class checkInListener implements Runnable{
 		return tableArray;
 	}
 	
+	public static void socketWrite(String message, ServerSocket servSocket) {
+		/*
+		 * tries to write a message to a socket
+		 */
+		System.out.println("writing: " + message);
+		try {
+			//accept client socket
+			Socket client = servSocket.accept();
+			PrintWriter servOut = new PrintWriter(client.getOutputStream());
+			
+			//send message
+			servOut.println(message);
+			servOut.close();
+			client.close();
+		}
+		catch(IOException io) {
+			io.printStackTrace();
+		}
+		
+	}
+	
+	public static String socketRead(ServerSocket servSocket) {
+		/*
+		 * reads a string and closes the message transfer
+		 */
+		System.out.print("reading...");
+		String message = "";
+		try {
+			//accept client socket
+			Socket client = servSocket.accept();
+			BufferedReader servIn = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			String input;
+			//read message
+			while((input = servIn.readLine()) != null)message = message + input;
+			client.close();
+			System.out.println(message);
+			return message;
+		
+		}
+		catch(IOException io) {
+			//io.printStackTrace();
+			System.out.println(message);
+			return message;
+		}
+	}
 	
 }
