@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.TreeMap;
 
 public class DBConnector
@@ -424,6 +423,80 @@ public class DBConnector
         return null;
     }
 
+    //Method to find end of an event
+    public String findTimeAttended(String targetAttendeeID, String targetEventID)
+    {
+
+        //Establish connection to database
+        Connection conHolder = null;
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+
+        try
+        {
+            //Register driver
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            //Attempt to log in
+            conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
+
+            //Declare ResultSet
+            ResultSet queryResult;
+
+            //Perform SQL query
+            Statement statement = conHolder.createStatement();
+
+            String sqlSelect = "SELECT  FirstCheck, LastCheck, " +
+                    "TIMESTAMPDIFF(YEAR, LastCheck, FirstCheck) AS yearDiff, " +
+                    "TIMESTAMPDIFF(MONTH, LastCheck, FirstCheck) AS monthDiff, " +
+                    "TIMESTAMPDIFF(DAY, LastCheck, FirstCheck) AS dayDiff, " +
+                    "TIMESTAMPDIFF(HOUR, LastCheck, FirstCheck) AS hourDiff, " +
+                    "TIMESTAMPDIFF(MINUTE, LastCheck, FirstCheck) AS minDiff, " +
+                    "TIMESTAMPDIFF(SECOND, LastCheck, FirstCheck) AS secDiff" +
+                    "\nFROM attends" +
+                    "\nWHERE AttID='" + targetAttendeeID + "'" +
+                    "\nAND EventID='" + targetEventID + "';";
+            queryResult = statement.executeQuery(sqlSelect);
+
+
+            //Store results of query
+            String yearDiff = null;
+            String monthDiff = null;
+            String dayDiff = null;
+            String hourDiff = null;
+            String minDiff = null;
+            String secDiff = null;
+
+            while(queryResult.next())
+            {
+                yearDiff = queryResult.getString("yearDiff");
+                monthDiff = queryResult.getString("monthDiff");
+                dayDiff = queryResult.getString("dayDiff");
+                hourDiff = queryResult.getString("hourDiff");
+                minDiff = queryResult.getString("minDiff");
+                secDiff = queryResult.getString("secDiff");
+            }
+
+            //Make sure to take absolute value
+            yearDiff = yearDiff.replace("-", "");
+            monthDiff = monthDiff.replace("-", "");
+            dayDiff = dayDiff.replace("-", "");
+            hourDiff = hourDiff.replace("-", "");
+            minDiff = minDiff.replace("-", "");
+            secDiff = secDiff.replace("-", "");
+
+
+            //Format foundTimeDifference string
+            String foundTimeDifference = yearDiff + "-" + monthDiff + "-" + dayDiff + " "  + hourDiff + ":" + minDiff + ":" + secDiff;
+
+            return foundTimeDifference;
+
+        }
+
+        catch (SQLException error)
+        {
+            error.printStackTrace();
+        }
+        return null;
+    }
 
     //Method to create an attendee, requires event ID
     public void createAttendee(String first, String last, String targetEventID)
@@ -627,23 +700,13 @@ public class DBConnector
             //Attempt to log in
             conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
 
-            try
-            {
-                //Delete old information
-                Statement statement = conHolder.createStatement();
-                String sql = "DELETE FROM attendees WHERE ID='" + targetAttendeeID + "';";
-                statement.executeUpdate(sql);
 
-                //Insert new information
-                sql = "INSERT INTO attendees (ID, Last, First)\n" +
-                        "VALUES ('" + targetAttendeeID + "', '" + newLast + "', '"  + newFirst + "');";
-                statement.executeUpdate(sql);
+            Statement statement = conHolder.createStatement();
+            String sql = "UPDATE attendees\n" +
+                        "SET Last='" + newLast + "', First='" + newFirst + "'\n" +
+                        "WHERE ID='" + targetAttendeeID + "';";
+            statement.executeUpdate(sql);
 
-            }
-            catch (SQLException error)
-            {
-                error.printStackTrace();
-            }
         }
 
         catch (SQLException error)
@@ -667,26 +730,12 @@ public class DBConnector
             //Attempt to log in
             conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
 
-            try
-            {
-                //Delete old information
-                Statement statement = conHolder.createStatement();
-                String sql = "DELETE FROM eventowner WHERE ID='" + targetEventOwnerID + "';";
-                statement.executeUpdate(sql);
-
-                //Insert new information
-                sql = "INSERT INTO eventowner (ID, First, Last, Password)\n" +
-                        "VALUES ('" + targetEventOwnerID + "', '" +
-                        newFirst + "', '"  +
-                        newLast + "', '" +
-                        newPassword + "');";
-                statement.executeUpdate(sql);
-
-            }
-            catch (SQLException error)
-            {
-                error.printStackTrace();
-            }
+            //Update eventowner record
+            Statement statement = conHolder.createStatement();
+            String sql = "UPDATE eventowner\n" +
+                        "SET First='" + newFirst + "', Last='" + newLast + "', Password='" + newPassword + "'\n" +
+                        "WHERE ID='" + targetEventOwnerID + "';";
+            statement.executeUpdate(sql);
         }
 
         catch (SQLException error)
@@ -710,28 +759,17 @@ public class DBConnector
             //Attempt to log in
             conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
 
-            try
-            {
-                //Delete old information
-                Statement statement = conHolder.createStatement();
-                String sql = "DELETE FROM event WHERE ID='" + targetEventID + "';";
-                statement.executeUpdate(sql);
-
-                //Insert new information
-                sql = "INSERT INTO event (ID, Date, Duration, Name, End, OwnerID)\n" +
-                        "VALUES ('" + targetEventID + "', '" +
-                        newDate + "', '"  +
-                        newDuration + "', '" +
-                        newName + "', '" +
-                        newEnd + "', '" +
-                        newOwnerID + "');";
-                statement.executeUpdate(sql);
-
-            }
-            catch (SQLException error)
-            {
-                error.printStackTrace();
-            }
+            //Update event record
+            Statement statement = conHolder.createStatement();
+            String sql = "UPDATE event\n" +
+                    "SET Date='" + newDate +
+                    "', Duration='" + newDuration +
+                    "', Name='" + newName +
+                    "', End='" + newEnd +
+                    "', OwnerID='" + newOwnerID +
+                    "'\n" +
+                    "WHERE ID='" + targetEventID + "';";
+            statement.executeUpdate(sql);
         }
 
         catch (SQLException error)
@@ -930,6 +968,34 @@ public class DBConnector
         }
     }
 
+    //Method to remove an attendee from an event
+    public void removeAttendeeFromEvent(String targetAttendeeID, String targetEventID)
+    {
+
+        //Establish connection to database
+        Connection conHolder = null;
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+
+        try
+        {
+            //Register driver
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            //Attempt to log in
+            conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
+
+            //Delete record from attends
+            Statement statement = conHolder.createStatement();
+            String sql = "DELETE FROM attends WHERE AttID='" + targetAttendeeID + "' AND EventID='" + targetEventID + "';";
+            statement.executeUpdate(sql);
+
+        }
+
+        catch (SQLException error)
+        {
+            error.printStackTrace();
+        }
+    }
+
     //Method to verify login
     public boolean verifyLogin(String targetOwnerID, String password)
     {
@@ -995,40 +1061,30 @@ public class DBConnector
             //Attempt to log in
             conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
 
-            try
-            {
-                //Delete old information
-                Statement statement = conHolder.createStatement();
-                String sql = "DELETE FROM attends WHERE AttID='" + targetAttendeeID + "' AND EventID='" + targetEventID + "';";
-                statement.executeUpdate(sql);
+            Statement statement = conHolder.createStatement();
+            String sql="";
 
-                //Check if mac address is null
-                if(macAddress != null)
-                {
-                    //Insert new information
-                    sql = "INSERT INTO attends (AttID, EventID, FirstCheck, LastCheck, HasAttended, SignMethod, MAC)\n" +
-                            "VALUES ('" + targetAttendeeID + "', '" +
-                            targetEventID + "', '"  +
-                            new java.sql.Date(Calendar.getInstance().getTimeInMillis()) + "', null, 0, '" +
-                            signInMethod + "', '" +
-                            macAddress + "');";
+            //Check if mac address is null, insert accordingly
+            if(macAddress != null)
+            {
+                sql = "UPDATE attends\n" +
+                        "SET FirstCheck=current_timestamp(), " +
+                        "SignMethod='" + signInMethod + "'," +
+                        "\nMAC='" + macAddress + "'" +
+                        "\nWHERE AttID='" + targetAttendeeID + "'" +
+                        "\nAND EventID='" + targetEventID + "';";
                 }
                 else
                 {
-                    //Insert new information
-                    sql = "INSERT INTO attends (AttID, EventID, FirstCheck, LastCheck, HasAttended, SignMethod, MAC)\n" +
-                            "VALUES ('" + targetAttendeeID + "', '" +
-                            targetEventID + "', '"  +
-                            new java.sql.Date(Calendar.getInstance().getTimeInMillis()) + "', null, 0, '" +
-                            signInMethod + "', null);";
+                    sql = "UPDATE attends\n" +
+                            "SET FirstCheck=current_timestamp(), " +
+                            "SignMethod='" + signInMethod + "'," +
+                            "\nMAC=null" +
+                            "\nWHERE AttID='" + targetAttendeeID + "'" +
+                            "\nAND EventID='" + targetEventID + "';";
                 }
-                statement.executeUpdate(sql);
 
-            }
-            catch (SQLException error)
-            {
-                error.printStackTrace();
-            }
+                statement.executeUpdate(sql);
         }
 
         catch (SQLException error)
@@ -1052,43 +1108,60 @@ public class DBConnector
             //Attempt to log in
             conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
 
-            //Store timestamp for future comparison
-            Date timestamp = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-
-            //Declare ResultSet
-            ResultSet queryResult;
-
-            //Perform SQL query
             Statement statement = conHolder.createStatement();
-            String sqlSelect = "SELECT * FROM attends\n" +
-                                "WHERE AttID='" + targetAttendeeID +
-                                "' AND EventID='" + targetEventID +
-                                "' AND CURDATE() >= '" + findStart(targetEventID) +
-                                "' AND CURDATE() <= '" + findEnd(targetEventID) +
-                                "' AND CAST(CURDATE() AS TIME) <= '" + findDuration(targetEventID) + "';";
-            queryResult = statement.executeQuery(sqlSelect);
+            String sql="";
 
-            String attendedString = "0";
-            //If there were was a result, then attended must be true b/c conditions were met
-            while(queryResult.next())
+            //See if FirstCheck is NOT null, then perform check out
+            if(!isFirstCheckNull(targetAttendeeID, targetEventID))
             {
-                attendedString = "1";
-            }
-
-            try
-            {
-                //Update information
-                statement = conHolder.createStatement();
-                String sql = "UPDATE attends\n" +
-                            "SET LastCheck='" + timestamp +
-                            "', HasAttended='" + attendedString + "'\n" +
-                            "WHERE AttID='" + targetAttendeeID + "' AND EventID='" + targetEventID + "';";
+                //Sets LastCheck to current_timestamp
+                sql = "UPDATE attends" +
+                        "\nSET LastCheck=current_timestamp(), HasAttended=null" +
+                        "\nWHERE AttID='" + targetAttendeeID + "'" +
+                        "\nAND EventID='" + targetEventID + "';";
                 statement.executeUpdate(sql);
 
-            }
-            catch (SQLException error)
-            {
-                error.printStackTrace();
+                //Find difference in time between LastCheck and First Check in seconds
+                String timeAttendedSeconds = findTimeAttended(targetAttendeeID, targetEventID);
+                timeAttendedSeconds = timeAttendedSeconds.substring(timeAttendedSeconds.lastIndexOf(":") + 1);
+                int timeAttendedSecondsInt = Integer.parseInt(timeAttendedSeconds);
+
+                //Grab duration of the event, split by colon
+                String[] eventDurationParts = findDuration(targetEventID).split(":");
+
+                //Grab each part of the duration time
+                String eventDurationHourString = eventDurationParts[0];
+                String eventDurationMinuteString = eventDurationParts[1];
+                String eventDurationSecondString = eventDurationParts[2];
+
+                //Create integer for calculations, convert to seconds
+                int eventDurationHourInt = Integer.parseInt(eventDurationHourString);
+                eventDurationHourInt *= 3600;
+                int eventDurationMinuteInt = Integer.parseInt(eventDurationMinuteString);
+                eventDurationMinuteInt *= 60;
+                int eventDurationSecondInt = Integer.parseInt(eventDurationSecondString);
+
+                //Add all seconds together
+                int eventDurationInSeconds = eventDurationHourInt + eventDurationMinuteInt + eventDurationSecondInt;
+
+                //User attended at least event duration
+                if(timeAttendedSecondsInt >= eventDurationInSeconds)
+                {
+                    sql = "UPDATE attends" +
+                            "\nSET HasAttended=1" +
+                            "\nWHERE AttID='" + targetAttendeeID + "'" +
+                            "\nAND EventID='" + targetEventID + "';";
+                }
+                //User did NOT attend event long enough
+                else
+                {
+                    sql = "UPDATE attends" +
+                            "\nSET HasAttended=0" +
+                            "\nWHERE AttID='" + targetAttendeeID + "'" +
+                            "\nAND EventID='" + targetEventID + "';";
+                }
+
+                statement.executeUpdate(sql);
             }
         }
 
@@ -1099,7 +1172,7 @@ public class DBConnector
     }
 
     //Method to check if an attendee has checked in or not
-    public boolean isFirstCheckNull(String targetAttendeeID, String targetEventID)
+    public static boolean isFirstCheckNull(String targetAttendeeID, String targetEventID)
     {
         //Establish connection to database
         Connection conHolder = null;
