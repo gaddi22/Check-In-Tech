@@ -291,7 +291,7 @@ public class DBConnector
     }
 
     //Method to find duration of an event
-    public String findDuration(String targetEventID)
+    public static String findDuration(String targetEventID)
     {
 
         //Establish connection to database
@@ -336,7 +336,7 @@ public class DBConnector
     }
 
     //Method to find start of an event
-    public String findStart(String targetEventID)
+    public static String findStart(String targetEventID)
     {
 
         //Establish connection to database
@@ -381,7 +381,7 @@ public class DBConnector
     }
 
     //Method to find end of an event
-    public String findEnd(String targetEventID)
+    public static String findEnd(String targetEventID)
     {
 
         //Establish connection to database
@@ -998,30 +998,25 @@ public class DBConnector
 
             try
             {
-                //Delete old information
+              
                 Statement statement = conHolder.createStatement();
-                String sql = "DELETE FROM attends WHERE AttID='" + targetAttendeeID + "' AND EventID='" + targetEventID + "';";
-                statement.executeUpdate(sql);
+                String sql = null;
 
                 //Check if mac address is null
                 if(macAddress != null)
                 {
                     //Insert new information
-                    sql = "INSERT INTO attends (AttID, EventID, FirstCheck, LastCheck, HasAttended, SignMethod, MAC)\n" +
-                            "VALUES ('" + targetAttendeeID + "', '" +
-                            targetEventID + "', '"  +
-                            new java.sql.Date(Calendar.getInstance().getTimeInMillis()) + "', null, 0, '" +
-                            signInMethod + "', '" +
-                            macAddress + "');";
+                    sql = "CALL checkInMobile('" + targetAttendeeID + "', '" +targetEventID + "', '" + signInMethod + "', '" + macAddress + "');";
                 }
                 else
                 {
+                	//String currTime = (java.time.LocalDate.now() +" " + java.time.LocalTime.now());
+                	//currTime = currTime.substring(0,currTime.length()-4);
+                	
+                	
+                	
                     //Insert new information
-                    sql = "INSERT INTO attends (AttID, EventID, FirstCheck, LastCheck, HasAttended, SignMethod, MAC)\n" +
-                            "VALUES ('" + targetAttendeeID + "', '" +
-                            targetEventID + "', '"  +
-                            new java.sql.Date(Calendar.getInstance().getTimeInMillis()) + "', null, 0, '" +
-                            signInMethod + "', null);";
+                	sql = "CALL checkInOther('"+ targetAttendeeID + "', '" +targetEventID + "','" +signInMethod + "');";
                 }
                 statement.executeUpdate(sql);
 
@@ -1038,8 +1033,9 @@ public class DBConnector
         }
     }
 
+    /*
     //Method to check out of an event
-    public void checkOut(String targetAttendeeID, String targetEventID)
+    public static void checkOut(String targetAttendeeID, String targetEventID)
     {
 
         //Establish connection to database
@@ -1053,6 +1049,22 @@ public class DBConnector
             //Attempt to log in
             conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
 
+            Statement statement = conHolder.createStatement();
+            String sql = null;
+
+            //Check if mac address is null
+           
+            //Insert new information
+            sql = "CALL checkInMobile('" + targetAttendeeID + "', '" +targetEventID + "', '" + signInMethod + "', '" + macAddress + "');";
+            
+
+            	
+            	
+            	
+            //Insert new information
+        	sql = "CALL checkInOther('"+ targetAttendeeID + "', '" +targetEventID + "','" +signInMethod + "');";
+        
+            statement.executeUpdate(sql);
             //Store timestamp for future comparison
             Date timestamp = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
 
@@ -1068,7 +1080,7 @@ public class DBConnector
                                 "' AND CURDATE() <= '" + findEnd(targetEventID) +
                                 "' AND CAST(CURDATE() AS TIME) <= '" + findDuration(targetEventID) + "';";
             queryResult = statement.executeQuery(sqlSelect);
-
+            
             String attendedString = "0";
             //If there were was a result, then attended must be true b/c conditions were met
             while(queryResult.next())
@@ -1092,12 +1104,11 @@ public class DBConnector
                 error.printStackTrace();
             }
         }
-
         catch (SQLException error)
         {
             error.printStackTrace();
         }
-    }
+    }*/
 
     //Method to check if an attendee has checked in or not
     public boolean isFirstCheckNull(String targetAttendeeID, String targetEventID)
@@ -1148,5 +1159,31 @@ public class DBConnector
         }
         return false;
     }
+    
+    public static String[][] treeToArray(TreeMap<String,String[]> tree){
+		//instantiate variables
+		ArrayList<String[]> table = new ArrayList<String[]>();
+		TreeMap currEvents = tree;
+		
+		
+		while(!currEvents .isEmpty()) {
+			ArrayList<String> temp = new ArrayList<String>();
+			
+			//combine key into arrays
+			temp.add((String) tree.lastKey());
+			for(String column :(String[])tree.get(tree.lastKey())){
+				temp.add(column);
+			}
+			
+			//add arrays to table arraylist
+			table.add((String[]) temp.toArray(new String[temp.size()]));
+			tree.remove(tree.lastKey());
+		}
+		
+		//convert arraylist to array
+		String[][] tableArray = (String[][])table.toArray(new String[table.size()][table.get(0).length]);
+		
+		return tableArray;
+	}
 
 }
