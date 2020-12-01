@@ -4,12 +4,6 @@ import java.util.TreeMap;
 
 public class DBConnector
 {
-    public static void main(String[] args) throws SQLException
-    {
-        checkInListener listener = new checkInListener();
-        listener.run();
-    }
-
     //Method to get list of every single attendee
     public TreeMap<String, String[]> getAllAttendees()
     {
