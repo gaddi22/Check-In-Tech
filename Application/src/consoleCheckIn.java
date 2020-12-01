@@ -36,7 +36,7 @@ public class consoleCheckIn {
 		String input = kbIn.nextLine();
 		
 		//menu loop
-		while(input != "e") {
+		while(!input.equals("e")) {
 			switch(input) {
 			case "g":
 				getEventList(servIP);
@@ -47,6 +47,12 @@ public class consoleCheckIn {
 			case "h":
 				System.out.println("enter new host network name or IP");
 				servIP = kbIn.nextLine();
+				
+				//default IP if no string given
+				if(servIP.isEmpty()) {
+					servIP = "localhost";
+				}
+
 				break;
 			case "e":
 				return;
@@ -57,9 +63,10 @@ public class consoleCheckIn {
 			
 			//display user menu
 			System.out.println("Menu\n"
-					+ "g: get events and rosters"
-					+ "c: check in"
-					+ "e: exit");
+					+ "g: get events and rosters\n"
+					+ "c: check in\n"
+					+ "h: enter new host\n"
+					+ "e: exit\n");
 			
 			input = kbIn.nextLine();
 		}
@@ -75,12 +82,8 @@ public class consoleCheckIn {
 		//TCP connection
 		try {
 			
-			//create socket, default port is 83456
-			Socket clientSocket = new Socket(servIP,83456);
-			
-			//setup I/O streams
-			PrintWriter servOut = new PrintWriter(clientSocket.getOutputStream());
-			BufferedReader servIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			//let server know check in is coming
+			socketWrite("c",servIP);
 			
 			//get MAC	        
 	        NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
@@ -99,10 +102,7 @@ public class consoleCheckIn {
 			System.out.println("Enter User ID:");
 			String uid = kbIn.nextLine();
 			
-			servOut.write(strMAC.toString() +"~"+ eventID +"~"+ uid);
-			servOut.close();
-			servIn.close();
-			clientSocket.close();
+			socketWrite(strMAC.toString() +"~"+ eventID +"~"+ uid, servIP);
 		}
 		catch(IOException e) {
 			System.out.println("No host found");
@@ -120,32 +120,27 @@ public class consoleCheckIn {
 		//container for events and rosters
 		ArrayList<ArrayList> result = new ArrayList<>();		
 		
-		//TCP connection
+		//get event list
+		socketWrite("g",servIP);
+		
+		ArrayList<ArrayList<ArrayList<String>>> rosters = new ArrayList<>();
+		ArrayList<ArrayList<String>> events = new ArrayList<>();
+		System.out.println("We reached here");
+		
+		String next = socketRead(servIP);
 		try {
-			
-			//create socket, default port is 83456
-			Socket clientSocket = new Socket(servIP,83456);
-			
-			//setup I/O streams
-			PrintWriter servOut = new PrintWriter(clientSocket.getOutputStream());
-			BufferedReader servIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			
-			//get event list
-			servOut.println("g");
-			ArrayList<ArrayList<ArrayList<String>>> rosters = new ArrayList<>();
-			ArrayList<ArrayList<String>> events = new ArrayList<>();
-			
-			String next = servIn.readLine();
-			while(next != "END" ) {
-				next = servIn.readLine();
+			while(!next.equals("END")) {
+				next = socketRead(servIP);
 				//row conatiner
 				ArrayList<String> row = new ArrayList<>();
 				
 				//add columns
-				while(next != "") {
+				while(next.contains("~")) {
 					row.add(next.substring(0,next.indexOf("~")));
 					next = next.substring(next.indexOf("~")+1);
 				}
+				//add final substring
+				row.add(next);
 				System.out.println(row.toString());
 				
 				//add row to event info
@@ -158,10 +153,10 @@ public class consoleCheckIn {
 				while(next != "Begin Event:") {
 					
 					//move down one line of input
-					next = servIn.readLine();
+					next = socketRead(servIP);
 					
 					//clean off brackets
-					next = next.substring(0,next.length()-1);
+					next = next.substring(0,next.length());
 					
 					//attendee container
 					ArrayList<String> attendee = new ArrayList<>();
@@ -170,7 +165,8 @@ public class consoleCheckIn {
 					//UID, Last, First
 					for(int i = 0; i < 3; i++) {
 						attendee.add(next.substring(0,next.indexOf("~")));
-						next = next.substring(next.indexOf("~")+1);
+						if(next != null)
+							next = next.substring(next.indexOf("~")+1);
 					}
 					
 					System.out.println(attendee.toString());
@@ -183,21 +179,62 @@ public class consoleCheckIn {
 				//add roster to list of rosters
 				rosters.add(roster);	
 			}
-			
-			//close socket
-			servOut.close();
-			servIn.close();
-			clientSocket.close();
-			
-			//build and return result
-			result.add(events);
-			result.add(rosters);
-			return result;
-			
 		}
-		catch(IOException e) {
-			System.out.println("No host found");
-			return null;
+		catch(NullPointerException npe) {
+			System.out.println("Unexpected end of output");
+		}
+		
+		//build and return result
+		result.add(events);
+		result.add(rosters);
+		return result;
+	}
+	
+	public static void socketWrite(String message, String servIP) {
+		/*
+		 * tries to write a message to a socket
+		 */
+		
+		System.out.println("writing: " + message);
+		try {
+			//create socket
+			Socket clientSocket = new Socket(servIP,25463);
+			PrintWriter servOut = new PrintWriter(clientSocket.getOutputStream());
+			
+			//send message
+			servOut.println(message);
+			servOut.close();
+			clientSocket.close();
+
+		}
+		catch(IOException io) {
+			io.printStackTrace();
+		}
+		
+	}
+	
+	public static String socketRead(String servIP) {
+		/*
+		 * reads a string and closes the message transfer
+		 */
+		System.out.print("reading...");
+		String message = "";
+		try {
+			//make socket
+			Socket clientSocket = new Socket(servIP,25463);
+			BufferedReader servIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			String input;
+			
+			//read message
+			while((input = servIn.readLine()) != null)message = message + input;
+			clientSocket.close();
+			System.out.println(message);
+			return message;
+		}
+		catch(IOException io) {
+			//io.printStackTrace();
+			System.out.print(message);
+			return message;
 		}
 	}
 
