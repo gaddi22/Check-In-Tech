@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class CardScan implements Runnable{
@@ -55,12 +53,27 @@ public class CardScan implements Runnable{
 		
 		//null if no more ids
 		
+		try {
+			String msg = bufferedIDs.get(0);
+			bufferedIDs.remove(0);
+			return msg;
+		}
+		catch(Exception e) {
+			return null;
+		}
+	}
+	
+	public String getNextID(){
+		/*
+		 * returns next card id from buffer and removes it from the list
+		 */
+		
+		//null if no more ids
+		
 		if(this.bufferedIDs.isEmpty())
 			return null;
 		else {
-			String result = this.bufferedIDs.get(0);
-			this.bufferedIDs.remove(0);
-			return result;
+			return bufferedIDs.get(0);
 		}
 	}
 

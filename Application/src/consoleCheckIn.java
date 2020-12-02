@@ -103,6 +103,7 @@ public class consoleCheckIn {
 			String uid = kbIn.nextLine();
 			
 			socketWrite(strMAC.toString() +"~"+ eventID +"~"+ uid, servIP);
+			socketWrite("\n",servIP);
 		}
 		catch(IOException e) {
 			System.out.println("No host found");

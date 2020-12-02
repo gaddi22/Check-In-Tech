@@ -4,17 +4,18 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
 public class SocketScan implements Runnable {
 
-private ArrayList<String> bufferedCheckIns;
+public ArrayList<String> bufferedCheckIns;
 private boolean stop;
 	
-	SocketScan(){
-		this.bufferedCheckIns = new ArrayList<>();
+	public SocketScan(){
+		bufferedCheckIns = new ArrayList<>();
 	}
 	
 	public void stop() {
@@ -22,6 +23,34 @@ private boolean stop;
 		 * signal to stop runnable
 		 */
 		stop = false;
+	}
+	
+	public String nextCheckIn() {
+		/*
+		 * reads next String in buffer
+		 */
+		
+		try {
+			return bufferedCheckIns.get(0);
+		}
+		catch(Exception e) {
+			return null;
+		}
+	}
+	
+	public String popCheckIn() {
+		/*
+		 * pops a check in off the buffered checkins of this Socket Scanner
+		 */
+		
+		if (bufferedCheckIns.isEmpty())
+			return null;
+		else {
+			System.out.println("sent a check in");
+			String result = bufferedCheckIns.get(0);
+			bufferedCheckIns.remove(0);
+			return result;
+		}
 	}
 	
 	@Override
@@ -36,50 +65,49 @@ private boolean stop;
 			servSoc.setSoTimeout(0);
 			
 			while(!stop) {
-					
-					//read in client message as byte array then make it a string
-					String msg = socketRead(servSoc);
-					
-					//g == "get event info"
-					//c == "check in"
-					if(msg.equals("g")) {
-						System.out.println("we got here");
-						for(Map.Entry row : DBConnector.findActiveEvents().entrySet()) {
-							System.out.println("we got here");
-							String ID = (String)row.getKey() + "";
-				            String[] infoArray = (String[])row.getValue();
-				            String infoArrayString = Arrays.toString(infoArray);
-				            infoArrayString = infoArrayString.replace(",", "~");
-				            infoArrayString = infoArrayString.replace("]", "");
-				            infoArrayString = infoArrayString.replace("[", "");
-
-				            System.out.println(ID + "~" + infoArrayString);
-				            
-				            socketWrite(ID + "~" + infoArrayString,servSoc);
+						try {
+						//read in client message as byte array then make it a string
+						String msg = socketRead(servSoc);
+						
+						//g == "get event info"
+						//c == "check in"
+						if(msg.equals("g")) {
+							//System.out.println("we got here");
+							for(Map.Entry row : DBConnector.findActiveEvents().entrySet()) {
+								//System.out.println("we got here");
+								String ID = (String)row.getKey() + "";
+					            String[] infoArray = (String[])row.getValue();
+					            String infoArrayString = Arrays.toString(infoArray);
+					            infoArrayString = infoArrayString.replace(",", "~");
+					            infoArrayString = infoArrayString.replace("]", "");
+					            infoArrayString = infoArrayString.replace("[", "");
+	
+					            System.out.println(ID + "~" + infoArrayString);
+					            
+					            socketWrite(ID + "~" + infoArrayString,servSoc);
+							}
+							
+							socketWrite("END", servSoc);
 							
 						}
+						else if(msg.equals("c")) {
+							msg = socketRead(servSoc);
+							bufferedCheckIns.add(msg);
+							System.out.println("recording in buffer:"+ bufferedCheckIns.get(0));
+							socketWrite("END", servSoc);
+						}			
 						
-					}
-					else if(msg.equals("c")) {
-						msg = socketRead(servSoc);
-						//parse string: MAC~EventID~UserID
-						String[] clientInf = new String[3];
-						
-						clientInf = msg.split("~");
-						
-						DBConnector.checkIn(clientInf[2],clientInf[1],"mobile",clientInf[0]);
-						//DBConnector.checkOut(clientInf[2],clientInf[1]);
-							
-					}			
-					
-					socketWrite("END", servSoc);
-			} 
+						}
+						catch(SocketTimeoutException soe) {
+							System.out.println("new socket attempt");
+						}
+					} 
 		}catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("new socket attempt");
 		}
 		
 	}
-	private void socketWrite(String message, ServerSocket servSocket) {
+	private void socketWrite(String message, ServerSocket servSocket) throws SocketTimeoutException{
 		/*
 		 * tries to write a message to a socket
 		 */
@@ -95,12 +123,12 @@ private boolean stop;
 			client.close();
 		}
 		catch(IOException io) {
-			io.printStackTrace();
+			//io.printStackTrace();
 		}
 		
 	}
 	
-	private String socketRead(ServerSocket servSocket) {
+	private String socketRead(ServerSocket servSocket) throws SocketTimeoutException {
 		/*
 		 * reads a string and closes the message transfer
 		 */
