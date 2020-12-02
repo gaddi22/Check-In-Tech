@@ -66,7 +66,7 @@ declare lastc DATETIME;
 
 SET dur = (SELECT Duration FROM event WHERE ID = targetEventID),
 	firstc = (select FirstCheck FROM attends WHERE AttID = targetAttendee AND EventID = targetEventID),
-	lastc = (select LastCheck FROM attends WHERE AttID = targetAttendee AND EventID = targetEventID);
+	lastc = current_timestamp();
 
 IF (abs( firstc - lastc) >= dur) THEN
 	set isCheck = 1;
@@ -115,7 +115,7 @@ BEGIN
 
 	SET dur = (SELECT Duration FROM event WHERE ID = targetEventID),
 		firstc = (select FirstCheck FROM attends WHERE AttID = targetAttendee AND EventID = targetEventID),
-		lastc = (select LastCheck FROM attends WHERE AttID = targetAttendee AND EventID = targetEventID);
+		lastc = current_timestamp();
 
 	IF (abs( firstc - lastc) >= dur) THEN
 		set isCheck = 1;
@@ -154,4 +154,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-01 19:43:15
+-- Dump completed on 2020-12-01 20:27:31
