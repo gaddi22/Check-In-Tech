@@ -81,10 +81,24 @@ private boolean stop;
 					            infoArrayString = infoArrayString.replace(",", "~");
 					            infoArrayString = infoArrayString.replace("]", "");
 					            infoArrayString = infoArrayString.replace("[", "");
-	
-					            System.out.println(ID + "~" + infoArrayString);
 					            
+					            //send event
 					            socketWrite(ID + "~" + infoArrayString,servSoc);
+					            
+					            //send roster of event
+					            for(Map.Entry rosterRow : DBConnector.findActiveEvents().entrySet()) {
+									//System.out.println("we got here");
+									String rosterID = (String)rosterRow.getKey() + "";
+						            String[] rosterInfoArray = (String[])rosterRow.getValue();
+						            String rosterInfoArrayString = Arrays.toString(rosterInfoArray);
+						            rosterInfoArrayString = rosterInfoArrayString.replace(",", "~");
+						            rosterInfoArrayString = rosterInfoArrayString.replace("]", "");
+						            rosterInfoArrayString = rosterInfoArrayString.replace("[", "");
+						            
+						            //send roster row
+						            socketWrite(rosterID + "~" + rosterInfoArrayString,servSoc);
+					            }
+					            
 							}
 							
 							socketWrite("END", servSoc);

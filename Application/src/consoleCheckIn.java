@@ -108,7 +108,7 @@ public class consoleCheckIn {
 		catch(IOException e) {
 			System.out.println("No host found");
 		}
-		
+		kbIn.close();
 	}
 
 	public static ArrayList<ArrayList> getEventList(String servIP) {
