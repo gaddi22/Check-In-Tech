@@ -86,17 +86,17 @@ private boolean stop;
 					            socketWrite(ID + "~" + infoArrayString,servSoc);
 					            
 					            //send roster of event
-					            for(Map.Entry rosterRow : DBConnector.findActiveEvents().entrySet()) {
+					            for(String[] rosterRow : DBConnector.getEventRoster(ID)) {
 									//System.out.println("we got here");
-									String rosterID = (String)rosterRow.getKey() + "";
-						            String[] rosterInfoArray = (String[])rosterRow.getValue();
-						            String rosterInfoArrayString = Arrays.toString(rosterInfoArray);
+									//String rosterID = (String)rosterRow.getKey() + "";
+						            //String[] rosterInfoArray = (String[])rosterRow.getValue();
+						            String rosterInfoArrayString = Arrays.toString(rosterRow);
 						            rosterInfoArrayString = rosterInfoArrayString.replace(",", "~");
 						            rosterInfoArrayString = rosterInfoArrayString.replace("]", "");
 						            rosterInfoArrayString = rosterInfoArrayString.replace("[", "");
 						            
 						            //send roster row
-						            socketWrite(rosterID + "~" + rosterInfoArrayString,servSoc);
+						            socketWrite(rosterInfoArrayString,servSoc);
 					            }
 					            
 							}
