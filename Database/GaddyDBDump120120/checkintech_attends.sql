@@ -18,30 +18,35 @@ USE `checkintech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `eventowner`
+-- Table structure for table `attends`
 --
 
-DROP TABLE IF EXISTS `eventowner`;
+DROP TABLE IF EXISTS `attends`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `eventowner` (
-  `ID` varchar(10) NOT NULL,
-  `First` varchar(45) NOT NULL,
-  `Last` varchar(45) NOT NULL,
-  `Password` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `ID_UNIQUE` (`ID`)
+CREATE TABLE `attends` (
+  `AttID` varchar(10) NOT NULL,
+  `EventID` varchar(10) NOT NULL,
+  `FirstCheck` datetime DEFAULT NULL,
+  `LastCheck` datetime DEFAULT NULL,
+  `HasAttended` tinyint(4) DEFAULT '0',
+  `SignMethod` varchar(6) DEFAULT NULL,
+  `MAC` varchar(12) DEFAULT NULL,
+  PRIMARY KEY (`AttID`,`EventID`),
+  KEY `EventID_idx` (`EventID`),
+  CONSTRAINT `AttID` FOREIGN KEY (`AttID`) REFERENCES `attendees` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `EventID` FOREIGN KEY (`EventID`) REFERENCES `event` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `eventowner`
+-- Dumping data for table `attends`
 --
 
-LOCK TABLES `eventowner` WRITE;
-/*!40000 ALTER TABLE `eventowner` DISABLE KEYS */;
-INSERT INTO `eventowner` VALUES ('1234567890','Gaddy','Morales','Password');
-/*!40000 ALTER TABLE `eventowner` ENABLE KEYS */;
+LOCK TABLES `attends` WRITE;
+/*!40000 ALTER TABLE `attends` DISABLE KEYS */;
+INSERT INTO `attends` VALUES ('0000000000','1','2020-12-01 19:02:47','2020-12-01 19:03:52',1,'card',NULL),('1','0','2020-11-30 03:35:17','2020-11-30 03:35:17',1,'mobile','018392947292'),('1','1','2020-12-01 18:07:39','2020-12-01 18:39:42',1,'mobile','0A002700001A');
+/*!40000 ALTER TABLE `attends` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-01 19:08:47
+-- Dump completed on 2020-12-01 19:43:15

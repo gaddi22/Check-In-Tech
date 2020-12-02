@@ -18,29 +18,30 @@ USE `checkintech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `attendees`
+-- Table structure for table `eventowner`
 --
 
-DROP TABLE IF EXISTS `attendees`;
+DROP TABLE IF EXISTS `eventowner`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `attendees` (
+CREATE TABLE `eventowner` (
   `ID` varchar(10) NOT NULL,
-  `Last` varchar(45) DEFAULT NULL,
-  `First` varchar(45) DEFAULT NULL,
+  `First` varchar(45) NOT NULL,
+  `Last` varchar(45) NOT NULL,
+  `Password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_UNIQUE` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `attendees`
+-- Dumping data for table `eventowner`
 --
 
-LOCK TABLES `attendees` WRITE;
-/*!40000 ALTER TABLE `attendees` DISABLE KEYS */;
-INSERT INTO `attendees` VALUES ('0000000000','empty','boi'),('1','1','1');
-/*!40000 ALTER TABLE `attendees` ENABLE KEYS */;
+LOCK TABLES `eventowner` WRITE;
+/*!40000 ALTER TABLE `eventowner` DISABLE KEYS */;
+INSERT INTO `eventowner` VALUES ('1234567890','Gaddy','Morales','Password');
+/*!40000 ALTER TABLE `eventowner` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-01 19:08:47
+-- Dump completed on 2020-12-01 19:43:15

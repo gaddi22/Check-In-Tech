@@ -18,34 +18,29 @@ USE `checkintech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `event`
+-- Table structure for table `attendees`
 --
 
-DROP TABLE IF EXISTS `event`;
+DROP TABLE IF EXISTS `attendees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `event` (
+CREATE TABLE `attendees` (
   `ID` varchar(10) NOT NULL,
-  `Date` datetime DEFAULT NULL,
-  `Duration` time DEFAULT NULL,
-  `Name` varchar(45) DEFAULT NULL,
-  `End` datetime DEFAULT NULL,
-  `OwnerID` varchar(45) NOT NULL,
+  `Last` varchar(45) DEFAULT NULL,
+  `First` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `ID_UNIQUE` (`ID`),
-  KEY `ID_idx` (`OwnerID`),
-  CONSTRAINT `ID` FOREIGN KEY (`OwnerID`) REFERENCES `eventowner` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `ID_UNIQUE` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `event`
+-- Dumping data for table `attendees`
 --
 
-LOCK TABLES `event` WRITE;
-/*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES ('0','1999-09-29 12:20:00','00:10:00','My Birthday','1999-09-29 14:30:00','1234567890'),('1','1999-09-23 11:34:00','00:00:05','something','2020-12-23 13:34:00','1234567890');
-/*!40000 ALTER TABLE `event` ENABLE KEYS */;
+LOCK TABLES `attendees` WRITE;
+/*!40000 ALTER TABLE `attendees` DISABLE KEYS */;
+INSERT INTO `attendees` VALUES ('0000000000','empty','boi'),('1','1','1');
+/*!40000 ALTER TABLE `attendees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-01 19:08:47
+-- Dump completed on 2020-12-01 19:43:14

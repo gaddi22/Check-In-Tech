@@ -18,35 +18,34 @@ USE `checkintech`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `attends`
+-- Table structure for table `event`
 --
 
-DROP TABLE IF EXISTS `attends`;
+DROP TABLE IF EXISTS `event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `attends` (
-  `AttID` varchar(10) NOT NULL,
-  `EventID` varchar(10) NOT NULL,
-  `FirstCheck` datetime DEFAULT NULL,
-  `LastCheck` datetime DEFAULT NULL,
-  `HasAttended` tinyint(4) DEFAULT '0',
-  `SignMethod` varchar(6) DEFAULT NULL,
-  `MAC` varchar(12) DEFAULT NULL,
-  PRIMARY KEY (`AttID`,`EventID`),
-  KEY `EventID_idx` (`EventID`),
-  CONSTRAINT `AttID` FOREIGN KEY (`AttID`) REFERENCES `attendees` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `EventID` FOREIGN KEY (`EventID`) REFERENCES `event` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE `event` (
+  `ID` varchar(10) NOT NULL,
+  `Date` datetime DEFAULT NULL,
+  `Duration` time DEFAULT NULL,
+  `Name` varchar(45) DEFAULT NULL,
+  `End` datetime DEFAULT NULL,
+  `OwnerID` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID_UNIQUE` (`ID`),
+  KEY `ID_idx` (`OwnerID`),
+  CONSTRAINT `ID` FOREIGN KEY (`OwnerID`) REFERENCES `eventowner` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `attends`
+-- Dumping data for table `event`
 --
 
-LOCK TABLES `attends` WRITE;
-/*!40000 ALTER TABLE `attends` DISABLE KEYS */;
-INSERT INTO `attends` VALUES ('0000000000','1','2020-12-01 19:02:47','2020-12-01 19:03:52',1,'card',NULL),('1','0','2020-11-30 03:35:17','2020-11-30 03:35:17',1,'mobile','018392947292'),('1','1','2020-12-01 18:07:39','2020-12-01 18:39:42',1,'mobile','0A002700001A');
-/*!40000 ALTER TABLE `attends` ENABLE KEYS */;
+LOCK TABLES `event` WRITE;
+/*!40000 ALTER TABLE `event` DISABLE KEYS */;
+INSERT INTO `event` VALUES ('0','1999-09-29 12:20:00','00:10:00','My Birthday','1999-09-29 14:30:00','1234567890'),('1','1999-09-23 11:34:00','00:00:05','something','2020-12-23 13:34:00','1234567890');
+/*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-01 19:08:47
+-- Dump completed on 2020-12-01 19:43:15
