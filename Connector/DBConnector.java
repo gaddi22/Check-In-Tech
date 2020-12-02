@@ -1,3 +1,5 @@
+package com.checknscan.checkntech;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -5,12 +7,12 @@ import java.util.TreeMap;
 public class DBConnector
 {
     //Method to get list of every single attendee
-    public TreeMap<String, String[]> getAllAttendees()
+    public static TreeMap<String, String[]> getAllAttendees()
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -53,7 +55,7 @@ public class DBConnector
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -68,8 +70,8 @@ public class DBConnector
             //Perform SQL query
             Statement statement = conHolder.createStatement();
             String sqlSelect = "SELECT  *\n" +
-                                "FROM attendees\n" +
-                                "WHERE ID = '" + targetAttendeeID + "' ";
+                    "FROM attendees\n" +
+                    "WHERE ID = '" + targetAttendeeID + "' ";
             queryResult = statement.executeQuery(sqlSelect);
 
             //Store result of query in String array { "First" , "Last" }
@@ -98,7 +100,7 @@ public class DBConnector
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -139,12 +141,12 @@ public class DBConnector
     }
 
     //Method to get list of every single event owner
-    public TreeMap<String, String[]> getAllEventOwners()
+    public static TreeMap<String, String[]> getAllEventOwners()
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -182,12 +184,12 @@ public class DBConnector
     }
 
     //Method to get list of every single event
-    public TreeMap<String, String[]> getAllEvents()
+    public static TreeMap<String, String[]> getAllEvents()
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -211,12 +213,12 @@ public class DBConnector
             while(queryResult.next())
             {
                 String[] infoArray = {
-                                        queryResult.getString("Date") ,
-                                        queryResult.getString("Duration") ,
-                                        queryResult.getString("Name") ,
-                                        queryResult.getString("End") ,
-                                        queryResult.getString("OwnerID")
-                                    };
+                        queryResult.getString("Date") ,
+                        queryResult.getString("Duration") ,
+                        queryResult.getString("Name") ,
+                        queryResult.getString("End") ,
+                        queryResult.getString("OwnerID")
+                };
                 eventMap.put(queryResult.getString("ID"), infoArray);
             }
 
@@ -236,7 +238,7 @@ public class DBConnector
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -252,8 +254,8 @@ public class DBConnector
             Statement statement = conHolder.createStatement();
             //String sqlSelect = "SELECT * FROM event";
             String sqlSelect = "SELECT  * " +
-                                "FROM attends " +
-                                "WHERE EventID = '" + targetEventID + "' ";
+                    "FROM attends " +
+                    "WHERE EventID = '" + targetEventID + "' ";
             queryResult = statement.executeQuery(sqlSelect);
 
 
@@ -283,12 +285,12 @@ public class DBConnector
     }
 
     //Method to find duration of an event
-    public String findDuration(String targetEventID)
+    public static String findDuration(String targetEventID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -333,7 +335,7 @@ public class DBConnector
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -378,7 +380,7 @@ public class DBConnector
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -418,12 +420,12 @@ public class DBConnector
     }
 
     //Method to find end of an event
-    public String findTimeAttended(String targetAttendeeID, String targetEventID)
+    public static String findTimeAttended(String targetAttendeeID, String targetEventID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -498,7 +500,7 @@ public class DBConnector
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -515,7 +517,7 @@ public class DBConnector
                 {
                     Statement statement = conHolder.createStatement();
                     String sql = "INSERT INTO attendees (ID, Last, First)\n" +
-                                "VALUES ('" + generatedID + "', '" + last + "', '"  + first + "');";
+                            "VALUES ('" + generatedID + "', '" + last + "', '"  + first + "');";
                     statement.executeUpdate(sql);
 
                     sql = "INSERT INTO attends (AttID, EventID, FirstCheck, LastCheck, HasAttended, SignMethod, MAC)\n" +
@@ -542,12 +544,12 @@ public class DBConnector
     }
 
     //Method to create an attendee, does NOT require event ID
-    public void createAttendee(String first, String last)
+    public static void createAttendee(String first, String last)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -585,12 +587,12 @@ public class DBConnector
 
 
     //Method to create an event
-    public void createEvent(String date, String duration, String name, String end, String ownerID)
+    public static void createEvent(String date, String duration, String name, String end, String ownerID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -638,12 +640,12 @@ public class DBConnector
     }
 
     //Method to create an event owner
-    public void createEventOwner(String first, String last, String password)
+    public static void createEventOwner(String first, String last, String password)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -680,12 +682,12 @@ public class DBConnector
     }
 
     //Method to update an attendee's information
-    public void updateAttendeeInfo(String targetAttendeeID, String newFirst, String newLast)
+    public static void updateAttendeeInfo(String targetAttendeeID, String newFirst, String newLast)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -697,8 +699,8 @@ public class DBConnector
 
             Statement statement = conHolder.createStatement();
             String sql = "UPDATE attendees\n" +
-                        "SET Last='" + newLast + "', First='" + newFirst + "'\n" +
-                        "WHERE ID='" + targetAttendeeID + "';";
+                    "SET Last='" + newLast + "', First='" + newFirst + "'\n" +
+                    "WHERE ID='" + targetAttendeeID + "';";
             statement.executeUpdate(sql);
 
         }
@@ -710,12 +712,12 @@ public class DBConnector
     }
 
     //Method to update an owner's information
-    public void updateEventOwnerInfo(String targetEventOwnerID, String newFirst, String newLast, String newPassword)
+    public static void updateEventOwnerInfo(String targetEventOwnerID, String newFirst, String newLast, String newPassword)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -727,8 +729,8 @@ public class DBConnector
             //Update eventowner record
             Statement statement = conHolder.createStatement();
             String sql = "UPDATE eventowner\n" +
-                        "SET First='" + newFirst + "', Last='" + newLast + "', Password='" + newPassword + "'\n" +
-                        "WHERE ID='" + targetEventOwnerID + "';";
+                    "SET First='" + newFirst + "', Last='" + newLast + "', Password='" + newPassword + "'\n" +
+                    "WHERE ID='" + targetEventOwnerID + "';";
             statement.executeUpdate(sql);
         }
 
@@ -739,12 +741,12 @@ public class DBConnector
     }
 
     //Method to update an event's information
-    public void updateEventInfo(String targetEventID, String newDate, String newDuration, String newName, String newEnd, String newOwnerID)
+    public static void updateEventInfo(String targetEventID, String newDate, String newDuration, String newName, String newEnd, String newOwnerID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -773,12 +775,12 @@ public class DBConnector
     }
 
     //Method to delete an attendee
-    public void deleteAttendee(String targetAttendeeID)
+    public static void deleteAttendee(String targetAttendeeID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -807,12 +809,12 @@ public class DBConnector
     }
 
     //Method to delete an event owner
-    public void deleteEventOwner(String targetEventOwnerID)
+    public static void deleteEventOwner(String targetEventOwnerID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -841,12 +843,12 @@ public class DBConnector
     }
 
     //Method to delete an event
-    public void deleteEvent(String targetEventID)
+    public static void deleteEvent(String targetEventID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -880,7 +882,7 @@ public class DBConnector
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -895,7 +897,7 @@ public class DBConnector
             //Perform SQL query
             Statement statement = conHolder.createStatement();
             String sqlSelect = "SELECT * FROM event\n" +
-                                "WHERE CURDATE() >= Date AND CURDATE() <= End";
+                    "WHERE CURDATE() >= Date AND CURDATE() <= End";
             queryResult = statement.executeQuery(sqlSelect);
 
             //Declare treemap to hold results of query
@@ -925,12 +927,12 @@ public class DBConnector
     }
 
     //Method to add an attendee to an event, considered NOT checked in
-    public void addAttendeeToEvent(String targetAttendeeID, String targetEventID)
+    public static void addAttendeeToEvent(String targetAttendeeID, String targetEventID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -963,12 +965,12 @@ public class DBConnector
     }
 
     //Method to remove an attendee from an event
-    public void removeAttendeeFromEvent(String targetAttendeeID, String targetEventID)
+    public static void removeAttendeeFromEvent(String targetAttendeeID, String targetEventID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -991,12 +993,12 @@ public class DBConnector
     }
 
     //Method to verify login
-    public boolean verifyLogin(String targetOwnerID, String password)
+    public static boolean verifyLogin(String targetOwnerID, String password)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -1046,7 +1048,7 @@ public class DBConnector
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -1055,30 +1057,35 @@ public class DBConnector
             //Attempt to log in
             conHolder = DriverManager.getConnection(conUrl, "Manager", "password");
 
-            Statement statement = conHolder.createStatement();
-            String sql="";
-
-            //Check if mac address is null, insert accordingly
-            if(macAddress != null)
+            try
             {
-                sql = "UPDATE attends\n" +
-                        "SET FirstCheck=current_timestamp(), " +
-                        "SignMethod='" + signInMethod + "'," +
-                        "\nMAC='" + macAddress + "'" +
-                        "\nWHERE AttID='" + targetAttendeeID + "'" +
-                        "\nAND EventID='" + targetEventID + "';";
+
+                Statement statement = conHolder.createStatement();
+                String sql = null;
+
+                //Check if mac address is null
+                if(macAddress != null)
+                {
+                    //Insert new information
+                    sql = "CALL checkInMobile('" + targetAttendeeID + "', '" +targetEventID + "', '" + signInMethod + "', '" + macAddress + "');";
                 }
                 else
                 {
-                    sql = "UPDATE attends\n" +
-                            "SET FirstCheck=current_timestamp(), " +
-                            "SignMethod='" + signInMethod + "'," +
-                            "\nMAC=null" +
-                            "\nWHERE AttID='" + targetAttendeeID + "'" +
-                            "\nAND EventID='" + targetEventID + "';";
-                }
+                    //String currTime = (java.time.LocalDate.now() +" " + java.time.LocalTime.now());
+                    //currTime = currTime.substring(0,currTime.length()-4);
 
+
+
+                    //Insert new information
+                    sql = "CALL checkInOther('"+ targetAttendeeID + "', '" +targetEventID + "','" +signInMethod + "');";
+                }
                 statement.executeUpdate(sql);
+
+            }
+            catch (SQLException error)
+            {
+                error.printStackTrace();
+            }
         }
 
         catch (SQLException error)
@@ -1088,12 +1095,12 @@ public class DBConnector
     }
 
     //Method to check out of an event
-    public void checkOut(String targetAttendeeID, String targetEventID)
+    public static void checkOut(String targetAttendeeID, String targetEventID)
     {
 
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
@@ -1170,7 +1177,7 @@ public class DBConnector
     {
         //Establish connection to database
         Connection conHolder = null;
-        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false";
+        String conUrl = "jdbc:mysql://localhost:3306/checkintech?useSSL=false&allowPublicKeyRetrieval=true";
 
         try
         {
