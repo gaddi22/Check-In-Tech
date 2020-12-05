@@ -24,5 +24,6 @@
     <orderEntry type="library" exported="" name="mysql:mysql-connector-java:8.0.21" level="application" />
     <orderEntry type="library" exported="" name="mysql:mysql-connector-mxj:5.0.12" level="application" />
     <orderEntry type="library" name="Maven: org.netbeans.external:AbsoluteLayout:RELEASE121" level="project" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:8.0.211" level="application" />
   </component>
 </module>
