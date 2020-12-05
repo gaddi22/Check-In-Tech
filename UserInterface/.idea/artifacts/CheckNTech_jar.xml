@@ -6,10 +6,11 @@
         <element id="file-copy" path="$PROJECT_DIR$/compoutput/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="CheckNTech" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../../Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.22.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/netbeans/external/AbsoluteLayout/RELEASE121/AbsoluteLayout-RELEASE121.jar" path-in-jar="/" />
       <element id="library" level="project" name="Maven: org.netbeans.external:AbsoluteLayout:RELEASE121" />
-      <element id="file-copy" path="$PROJECT_DIR$/../../../../../../Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.22.jar" />
+      <element id="library" level="application" name="mysql:mysql-connector-java:8.0.21" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../../../Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.22.jar" path-in-jar="/" />
+      <element id="library" level="project" name="mysql:mysql-connector-java:8.0.22" />
     </root>
   </artifact>
 </component>
