@@ -98,7 +98,7 @@ public class EventManager extends javax.swing.JFrame {
         } catch (Exception e) {
         }
         eventManagerTable = new javax.swing.JTable();
-        eventManagerTable.setAutoCreateRowSorter(true);
+        eventManagerTable.setAutoCreateRowSorter(false);
         eventManagerTable.setModel(new javax.swing.table.DefaultTableModel(
                 eventTable,
                 new String[]{

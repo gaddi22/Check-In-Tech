@@ -2,6 +2,7 @@ package com.checknscan.checkntech;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.TreeMap;
 
 public class DBConnector
@@ -260,17 +261,19 @@ public class DBConnector
 
 
             //Store results of query into IDArray
-            ArrayList<String> IDArray = new ArrayList<>();
+            ArrayList<String[]> IDArray = new ArrayList<>();
             while(queryResult.next())
             {
-                IDArray.add(queryResult.getString("AttID"));
+                IDArray.add(new String[] {queryResult.getString("AttID"),queryResult.getString("HasAttended")});
             }
 
             //Iterate through IDArray to find names
             ArrayList<String[]> nameArray = new ArrayList<>();
-            for (String ID : IDArray)
+            for (String[] ID : IDArray)
             {
-                nameArray.add(findAttendeeECHO(ID));
+                String[] temp = Arrays.copyOf(findAttendeeECHO(ID[0]),findAttendeeECHO(ID[0]).length+1);
+                temp[temp.length-1] = ID[1];
+                nameArray.add(temp);
             }
 
             return nameArray;

@@ -128,12 +128,12 @@ public class EventRosterManager extends javax.swing.JFrame {
         ArrayList<String[]> temp = new ArrayList<>();
         try {
             temp = DBConnector.getEventRoster(getSelectedEventID());
-            eventRoster = temp.toArray(new String[temp.size()][]);
+            eventRoster = temp.toArray(new String[temp.size()][4]);
         } catch (Exception e) {
             eventRoster = new String[][]{};
         }
 
-        System.out.println(temp.size() + getSelectedEventID());
+       // System.out.println(temp.size() + getSelectedEventID());
 
         Object[][] mainAttendeeRoster = new Object[][]{};
 
@@ -156,11 +156,14 @@ public class EventRosterManager extends javax.swing.JFrame {
                 eventObjRoster[i][0] = eventRoster[i][0];
                 eventObjRoster[i][1] = eventRoster[i][1];
                 eventObjRoster[i][2] = eventRoster[i][2];
-                if (DBConnector.isFirstCheckNull((String) eventObjRoster[i][0], getSelectedEventID()) == false)
-                    eventObjRoster[i][3] = "YES";
+                System.out.println("Roster Length: " + eventRoster[i].length);
+                if (eventRoster[i][3].equals("1")) {
+                // if (DBConnector.isFirstCheckNull((String) eventObjRoster[i][0], getSelectedEventID()) == null) {
+                    eventObjRoster[i][3] = "YES"; //eventRoster[i][3];
+                }
                 else
-                    eventObjRoster[i][3] = "NO";
-            }
+                    eventObjRoster[i][3] =  "NO"; //eventRoster[i][3];
+                }
 
         }
 
