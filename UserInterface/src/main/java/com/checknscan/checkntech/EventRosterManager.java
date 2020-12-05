@@ -599,7 +599,7 @@ public class EventRosterManager extends javax.swing.JFrame {
         }
         eventRosterTable.addNotify();
         while(eventRosterTable.getSelectedRow() != -1)
-            eventRosterTable.removeRowSelectionInterval(0,eventRosterTable.getRowCount()-1); // Needs to be tested.
+            eventRosterTable.removeRowSelectionInterval(0,eventRosterTable.getRowCount()-1);
 
     }//GEN-LAST:event_removeButtonActionPerformed
 
