@@ -1,7 +1,7 @@
 # Check-In-Tech
 
 Notable Folders in this directory:
-	Client App
+	Console Check In App
 		Source Code
 		ConsoleApp.jar
 		RunConsoleApp.bat
