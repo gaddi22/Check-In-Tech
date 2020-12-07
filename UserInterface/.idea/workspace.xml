@@ -10,7 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="601e5d4a-d1fb-4e1e-98e6-fcc8e0df7db8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/checknscan/checkntech/EventRosterManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/checknscan/checkntech/EventRosterManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/checknscan/checkntech/DBConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/checknscan/checkntech/DBConnector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
