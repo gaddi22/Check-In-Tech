@@ -900,7 +900,7 @@ public class DBConnector
             //Perform SQL query
             Statement statement = conHolder.createStatement();
             String sqlSelect = "SELECT * FROM event\n" +
-                    "WHERE CURDATE() >= Date AND CURDATE() <= End";
+                    "WHERE CURRENT_TIMESTAMP() >= Date AND  CURRENT_TIMESTAMP() <= End;";
             queryResult = statement.executeQuery(sqlSelect);
 
             //Declare treemap to hold results of query
