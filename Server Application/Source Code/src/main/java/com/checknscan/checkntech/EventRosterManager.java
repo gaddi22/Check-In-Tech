@@ -156,7 +156,7 @@ public class EventRosterManager extends javax.swing.JFrame {
                 eventObjRoster[i][0] = eventRoster[i][0];
                 eventObjRoster[i][1] = eventRoster[i][1];
                 eventObjRoster[i][2] = eventRoster[i][2];
-                System.out.println("Roster Length: " + eventRoster[i].length);
+                // System.out.println("Roster Length: " + eventRoster[i].length);
                 if (eventRoster[i][3].equals("1")) {
                 // if (DBConnector.isFirstCheckNull((String) eventObjRoster[i][0], getSelectedEventID()) == null) {
                     eventObjRoster[i][3] = "YES"; //eventRoster[i][3];
@@ -599,7 +599,7 @@ public class EventRosterManager extends javax.swing.JFrame {
         }
         eventRosterTable.addNotify();
         while(eventRosterTable.getSelectedRow() != -1)
-            eventRosterTable.removeRowSelectionInterval(0,eventRosterTable.getRowCount()-1); // Needs to be tested.
+            eventRosterTable.removeRowSelectionInterval(0,eventRosterTable.getRowCount()-1);
 
     }//GEN-LAST:event_removeButtonActionPerformed
 

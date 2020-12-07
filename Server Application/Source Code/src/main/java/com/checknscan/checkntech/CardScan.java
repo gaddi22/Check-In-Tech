@@ -14,10 +14,14 @@ public class CardScan implements Runnable{
 		stop = false;
 		defaultEvent = getDefaultEvent();
 	}
-	
+
 	public String getDefaultEvent() {
-		// Default event is first active event
-		return DBConnector.findActiveEvents().firstKey();
+		try {
+			// Default event is first active event
+			return DBConnector.findActiveEvents().firstKey();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public void stop() {
